@@ -72,7 +72,7 @@ def age_validation(age):
     while age < 16 or age > 55:
         if register_attempts > 0:
             print("Invalid age")
-            age = input("Enter your age: ")
+            age = int(input("Enter your age: "))
             register_attempts -= 1
             continue
         else:

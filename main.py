@@ -2,6 +2,8 @@
 # Imports
 # ============================================================================
 from login_and_register import login, register_user
+# from station import Station
+# from charger import ACCharger, DCCharger
 # ====================================================================================================
 while True:
     print("Welcome to our project") # Will be changed :)
@@ -14,7 +16,6 @@ while True:
                 current_user = login()
             elif choice1 == 2:
                 register_user()
-                break
             elif choice1 == 3:
                 print("Closing")
                 break
