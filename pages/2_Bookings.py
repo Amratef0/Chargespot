@@ -12,7 +12,7 @@ from services.scheduler import Scheduler
 
 user = require_page("bookings")
 app = get_app()
-st.title("Bookings")
+st.title("📅 Bookings")
 show_flash()
 DURATIONS = [30, 45, 60, 90, 120, 180, 240]
 
@@ -27,7 +27,7 @@ def book_tab():
     with st.form("search"):
         c = st.columns(4)
         area = c[0].selectbox("Your area", Scheduler.get_areas(app.stations.stations))
-        day = c[1].date_input("Date", date.today(), min_value=date.today())
+        day = c[1].date_input("Date", app.now().date(), min_value=app.now().date())
         slots = [minutes_to_time(m) for m in range(0, 24 * 60, 15)]
         hhmm = c[2].selectbox("Start time", slots, index=slots.index("10:00"))
         dur = c[3].selectbox("Duration (min)", DURATIONS, index=2)
@@ -101,7 +101,7 @@ def mine_tab():
 def all_tab():
     c = st.columns(3)
     sid = c[0].selectbox("Station", app.stations.stations, format_func=lambda s: f"{s.station_id} - {s.name}", key="all_station")
-    gday = c[1].date_input("Day", date.today(), key="all_day")
+    gday = c[1].date_input("Day", app.now().date(), key="all_day")
     status = c[2].selectbox("Status", [None, "Confirmed", "Completed", "Cancelled", "No-Show"])
     st.subheader("Availability grid (2-D: charger × hour)")
     grid = app.bookings.availability_grid(sid, gday.strftime("%Y-%m-%d"))

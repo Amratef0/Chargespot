@@ -9,14 +9,14 @@ from core.ui import flash, run_action, show_flash
 
 user = require_page("sessions")
 app = get_app()
-st.title("Charging Sessions")
+st.title("🔋 Charging Sessions")
 show_flash()
 st.caption("Planned time comes from the booking; actual time is recorded when the session starts. "
            "Use the 'simulated time' boxes to demo without waiting.")
 
 tab_go, tab_hist = st.tabs(["Start / complete", "History"])
 with tab_go:
-    day = st.date_input("Bookings for", date.today())
+    day = st.date_input("Bookings for", app.now().date())
     lo, hi = datetime.combine(day, time(0)), datetime.combine(day, time(23, 59))
     ready = [b for b in app.bookings.list_bookings(status="Confirmed") if lo <= b.start_time <= hi]
     active_ids = {s.booking_id for s in app.sessions.sessions if s.status == "Active"}

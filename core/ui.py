@@ -1,17 +1,29 @@
 """Small shared UI helpers."""
 import streamlit as st
 
-from models.exceptions import ChargeSpotError
+
+
+def is_named(error: BaseException, class_name: str) -> bool:
+    """True if `error` is (a subclass of) a class called `class_name`.
+
+    Compared by NAME on purpose: when Streamlit reloads a module (e.g. after a code update while the cached app is
+    still running), the cached services keep raising the OLD exception classes, and `except ChargeSpotError` with
+    the NEW class would not catch them -> the user would see a traceback instead of "You cannot book a time in
+    the past"."""
+    return any(c.__name__ == class_name for c in type(error).__mro__)
+
+
+def is_app_error(error: BaseException) -> bool:
+    return is_named(error, "ChargeSpotError") or isinstance(error, ValueError)   # M3's services raise ValueError
 
 
 def run_action(fn, *args, success=None, **kwargs):
     """Run a service call; show a friendly error for ChargeSpotError. Returns (ok, result)."""
     try:
         res = fn(*args, **kwargs)
-    except ChargeSpotError as e:
-        st.error(str(e))
-        return False, None
-    except ValueError as e:                       # Member 3's services raise ValueError for bad numbers
+    except Exception as e:                        # st.rerun()/st.stop() are BaseException: they pass through
+        if not is_app_error(e):
+            raise
         st.error(str(e))
         return False, None
     if success:

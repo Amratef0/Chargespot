@@ -27,6 +27,7 @@ import numpy as np
 import pandas as pd
 
 from algorithms.greedy_scheduler import pick_charger_greedy, suggest_alternatives
+from core import clock
 from core.data_store import DATA_DIR, atomic_write_csv, ensure_dataset
 from core.schema import BOOKING_COLS, DATETIME_FORMAT, SESSION_COLS, STATION_COLS, CHARGER_COLS
 from models.booking import Booking
@@ -48,7 +49,7 @@ FMT = DATETIME_FORMAT
 
 
 class ChargeSpotApp:
-    def __init__(self, data_dir=DATA_DIR, now_fn=datetime.now, mailer=None):
+    def __init__(self, data_dir=DATA_DIR, now_fn=clock.now, mailer=None):
         self.dir = Path(data_dir)
         self.now = now_fn
         self.mailer_override = mailer              # tests pass a MemoryMailer; the app builds one from the environment
