@@ -14,7 +14,7 @@ from models.exceptions import ChargeSpotError, EmailNotVerifiedError
 from services.authz import allowed_pages
 from services.mailer import FileMailer
 
-st.set_page_config(page_title="ChargeSpot", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="ChargeSpot", layout="wide")
 app = get_app()
 user = authenticate()
 sync_cookie()
@@ -159,7 +159,5 @@ with st.sidebar:
     if st.button("Logout"):
         logout_user()
         st.rerun()
-    st.caption("All data is simulated.")
-
 # the menu is DERIVED from permissions (services/authz.py): there is no second list of roles to keep in sync
 st.navigation([PAGES[k] for k in allowed_pages(user, PAGES)]).run()

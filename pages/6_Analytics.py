@@ -56,20 +56,14 @@ st.sidebar.header("Data & filters")
 source = st.sidebar.radio(
     "Data source",
     [
-        "Project dataset (clean)",
-        "Raw messy file (auto-cleaned)",
-        "Upload my own bookings CSV",
+        "Chargespot dataset",
     ],
 )
 
 report = None
 
-if source == "Project dataset (clean)":
+if source == "Chargespot dataset":
     bookings_all = data["bookings"]
-
-elif source == "Raw messy file (auto-cleaned)":
-    raw = pd.read_csv(messy_path(), dtype=str)
-    bookings_all, report = clean_cached(raw, stations)
 
 else:
     uploaded_file = st.sidebar.file_uploader(
