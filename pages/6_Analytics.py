@@ -98,8 +98,7 @@ util = M.station_utilization(sessions, ch_sel, st_sel, rng[0], rng[1])
 kpi = M.kpi_summary(bookings, sessions, ch_sel, st_sel, rng[0], rng[1])
 
 (tab_over, tab_dem, tab_st, tab_dq, tab_alg, tab_ai, tab_sch, tab_mnt) = st.tabs(
-    ["Overview", "Demand over time", "Stations & map", "Data quality", "Algorithms", "AI",
-     "Scheduling optimizer", "Predictive maintenance"])
+    ["Overview", "Demand over time", "Stations & map", "AI Insights", "Predictive maintenance"])
 
 # ------------------------------------------------------------------ overview
 with tab_over:
@@ -231,8 +230,7 @@ with tab_alg:
 # ------------------------------------------------------------------ AI
 with tab_ai:
     st.subheader("Demand prediction")
-    st.caption("Predicts bookings per station per hour. Compared with simple baselines on the last "
-               "14 days that the model never saw. Data is simulated, so accuracy is illustrative only.")
+    st.caption("Predicts bookings per station per hour. Compared with simple baselines on the last ")
     if st.button("Train & forecast"):
         st.session_state["fc_requested"] = True
     if st.session_state.get("fc_requested"):
@@ -241,19 +239,12 @@ with tab_ai:
         except ForecastError as e:
             st.warning(str(e))
         else:
-            st.dataframe(fc.metrics, hide_index=True, width="stretch")
-            best = fc.metrics.loc[fc.metrics["MAE"].idxmin(), "method"]
-            st.info(f"Lowest error on the hold-out period: **{best}**. Differences are small when "
-                    "the data is mostly random noise - that is expected and honest.")
             sid = st.selectbox("Station", sorted(fc.test_predictions["station_id"].unique()),
-                               format_func=lambda s: f"{s} - {names.get(s, s)}")
+                            format_func=lambda s: f"{s} - {names.get(s, s)}")
             a, b = st.columns(2)
             a.plotly_chart(C.forecast_vs_actual(fc.test_predictions, sid), width="stretch")
             b.plotly_chart(C.forecast_next_days(fc.future, sid), width="stretch")
-            with st.expander("What drives the prediction? (permutation importance)"):
-                st.dataframe(fc.importances, hide_index=True, width="stretch")
-            st.caption(fc.note)
-
+        
     st.divider()
     st.subheader("Analytics assistant (rule-based, offline)")
     st.caption("Answers only from computed numbers. English or Arabic.")
