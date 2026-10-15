@@ -94,7 +94,7 @@ def forecast_vs_actual(tp: pd.DataFrame, station_id: str) -> go.Figure:
     d = d.groupby("day")[["actual", "baseline", "model"]].sum().reset_index()
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=d["day"], y=d["actual"], name="Actual", mode="lines+markers",
-                             line=dict(color="#222", width=3)))
+                             line=dict(color="#8A94A0", width=3)))   # mid-grey: readable on light AND dark
     fig.add_trace(go.Scatter(x=d["day"], y=d["baseline"], name="Baseline", mode="lines",
                              line=dict(color=PALETTE[1], dash="dot")))
     fig.add_trace(go.Scatter(x=d["day"], y=d["model"], name="ML model", mode="lines+markers",

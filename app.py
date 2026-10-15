@@ -14,7 +14,7 @@ from models.exceptions import ChargeSpotError, EmailNotVerifiedError
 from services.authz import allowed_pages
 from services.mailer import FileMailer
 
-st.set_page_config(page_title="ChargeSpot", layout="wide")
+st.set_page_config(page_title="ChargeSpot", page_icon="⚡", layout="wide")
 app = get_app()
 user = authenticate()
 sync_cookie()
@@ -55,7 +55,7 @@ def dev_mailbox_note():
 
 
 def auth_screen():
-    st.title("ChargeSpot")
+    st.title("⚡ ChargeSpot")
     st.caption("EV charging: find a charger, book a slot, join the waiting list, track your sessions. "
                "All data is simulated.")
     show_flash()
@@ -139,13 +139,7 @@ def auth_screen():
 
 
 if user is None:
-    guest_page = st.Page(
-        auth_screen,
-        title="Login",
-        icon="🔐",
-        default=True,
-    )
-    st.navigation([guest_page]).run()
+    auth_screen()
     st.stop()
 
 PAGES = {
@@ -157,13 +151,17 @@ PAGES = {
     "driver": st.Page("pages/5_Driver_Dashboard.py", title="Driver Dashboard", icon="🚗"),
     "recommend": st.Page("pages/7_Recommendation.py", title="Smart Recommendation", icon="🎯"),
     "analytics": st.Page("pages/6_Analytics.py", title="Admin Analytics", icon="📊"),
+    "lab": st.Page("pages/8_Algorithm_Lab.py", title="Algorithm Lab", icon="🧪"),
 }
 
 with st.sidebar:
-    st.title("ChargeSpot")
+    st.title("⚡ ChargeSpot")
     st.markdown(f"**{user.name}**  \n{user.label}" + (f" · `{user.driver_id}`" if user.driver_id else ""))
     if st.button("Logout"):
         logout_user()
         st.rerun()
+    st.caption("All data is simulated.")
+    st.caption("🌗 Theme: ⋮ menu (top right) → Settings → Theme")
+
 # the menu is DERIVED from permissions (services/authz.py): there is no second list of roles to keep in sync
 st.navigation([PAGES[k] for k in allowed_pages(user, PAGES)]).run()

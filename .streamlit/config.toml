@@ -1,5 +1,19 @@
+# Theme: Streamlit (>= 1.51) lets the user switch Light / Dark / "Use system setting" from the app's menu
+# (top-right "⋮" -> Settings -> Theme). Both palettes below are ours, so both modes look like ChargeSpot.
 [theme]
 primaryColor = "#2E86AB"
+
+[theme.light]
+primaryColor = "#2E86AB"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EEF3F7"
+textColor = "#1B2A36"
+
+[theme.dark]
+primaryColor = "#4FB0D8"
+backgroundColor = "#0E1621"
+secondaryBackgroundColor = "#172331"
+textColor = "#E6EDF3"
 
 [server]
 headless = true
