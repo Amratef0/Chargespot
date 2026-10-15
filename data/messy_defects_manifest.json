@@ -1,0 +1,17 @@
+{
+  "seed": 42,
+  "rows_in_file": 1707,
+  "injected": {
+    "duplicate_rows": 25,
+    "mixed_date_formats": 25,
+    "missing_start_time": 25,
+    "invalid_duration": 25,
+    "connector_variants": 25,
+    "status_variants": 25,
+    "invalid_booking_id": 25,
+    "missing_charger_id": 25,
+    "end_before_start": 25,
+    "missing_wait_min": 25,
+    "unknown_station": 25
+  }
+}

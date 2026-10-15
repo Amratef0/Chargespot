@@ -1,0 +1,618 @@
+[
+    {
+        "station_id": 1,
+        "name": "Tahrir EV Station",
+        "governorate": "Cairo",
+        "address": "Tahrir Square",
+        "chargers": [
+            {
+                "charger_id": "AC-101",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "DC-201",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            }
+        ],
+        "area": "Downtown",
+        "price_per_kwh": 6.5,
+        "lat": 30.0444,
+        "lon": 31.2357,
+        "open_hour": 0,
+        "close_hour": 24
+    },
+    {
+        "station_id": 2,
+        "name": "ChargeSpot Smouha",
+        "governorate": "Alexandria",
+        "address": "Victor Emanuel",
+        "area": "Smouha",
+        "price_per_kwh": 5.5,
+        "lat": 31.215,
+        "lon": 29.9433,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-202",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-203",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-102",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-103",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 3,
+        "name": "ChargeSpot Sidi Gaber",
+        "governorate": "Alexandria",
+        "address": "Sidi Gaber Station",
+        "area": "Sidi Gaber",
+        "price_per_kwh": 5.5,
+        "lat": 31.2194,
+        "lon": 29.9421,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-204",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-205",
+                "charger_power_kw": 50,
+                "charger_status": "Available",
+                "connector_type": "CHAdeMO",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-104",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 4,
+        "name": "ChargeSpot Stanley",
+        "governorate": "Alexandria",
+        "address": "Stanley Bridge",
+        "area": "Stanley",
+        "price_per_kwh": 5.0,
+        "lat": 31.2335,
+        "lon": 29.949,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-206",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-105",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-106",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 5,
+        "name": "ChargeSpot San Stefano",
+        "governorate": "Alexandria",
+        "address": "San Stefano Mall",
+        "area": "San Stefano",
+        "price_per_kwh": 6.0,
+        "lat": 31.2457,
+        "lon": 29.9675,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-207",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-208",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-209",
+                "charger_power_kw": 50,
+                "charger_status": "Available",
+                "connector_type": "CHAdeMO",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-107",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-108",
+                "charger_power_kw": 11,
+                "charger_status": "Maintenance",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 6,
+        "name": "ChargeSpot Miami",
+        "governorate": "Alexandria",
+        "address": "Miami Beach",
+        "area": "Miami",
+        "price_per_kwh": 5.0,
+        "lat": 31.269,
+        "lon": 29.999,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-210",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-109",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 7,
+        "name": "ChargeSpot Sporting",
+        "governorate": "Alexandria",
+        "address": "Sporting Club",
+        "area": "Sporting",
+        "price_per_kwh": 4.5,
+        "lat": 31.217,
+        "lon": 29.938,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-211",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-110",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-111",
+                "charger_power_kw": 7,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 8,
+        "name": "ChargeSpot Kafr Abdo",
+        "governorate": "Alexandria",
+        "address": "Kafr Abdo Square",
+        "area": "Kafr Abdo",
+        "price_per_kwh": 4.5,
+        "lat": 31.237,
+        "lon": 29.96,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-212",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-112",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 9,
+        "name": "ChargeSpot Nasr City 1",
+        "governorate": "Cairo",
+        "address": "Abbas El Akkad",
+        "area": "Nasr City",
+        "price_per_kwh": 6.5,
+        "lat": 30.056,
+        "lon": 31.34,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-213",
+                "charger_power_kw": 150,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-214",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-215",
+                "charger_power_kw": 50,
+                "charger_status": "Available",
+                "connector_type": "CHAdeMO",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-113",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-114",
+                "charger_power_kw": 22,
+                "charger_status": "Maintenance",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 10,
+        "name": "ChargeSpot Nasr City 2",
+        "governorate": "Cairo",
+        "address": "Makram Ebeid",
+        "area": "Nasr City",
+        "price_per_kwh": 6.0,
+        "lat": 30.063,
+        "lon": 31.346,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-216",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-217",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-115",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-116",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 11,
+        "name": "ChargeSpot Heliopolis",
+        "governorate": "Cairo",
+        "address": "Korba",
+        "area": "Heliopolis",
+        "price_per_kwh": 7.0,
+        "lat": 30.088,
+        "lon": 31.325,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-218",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-219",
+                "charger_power_kw": 50,
+                "charger_status": "Available",
+                "connector_type": "CHAdeMO",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-117",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-118",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 12,
+        "name": "ChargeSpot Maadi",
+        "governorate": "Cairo",
+        "address": "Maadi Grand Mall",
+        "area": "Maadi",
+        "price_per_kwh": 7.5,
+        "lat": 29.96,
+        "lon": 31.258,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-220",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-221",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-119",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-120",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 13,
+        "name": "ChargeSpot New Cairo 1",
+        "governorate": "Cairo",
+        "address": "Fifth Settlement",
+        "area": "New Cairo",
+        "price_per_kwh": 7.0,
+        "lat": 30.0074,
+        "lon": 31.4913,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-222",
+                "charger_power_kw": 150,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-223",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-224",
+                "charger_power_kw": 50,
+                "charger_status": "Available",
+                "connector_type": "CHAdeMO",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-121",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-122",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 14,
+        "name": "ChargeSpot New Cairo 2",
+        "governorate": "Cairo",
+        "address": "South 90th",
+        "area": "New Cairo",
+        "price_per_kwh": 6.5,
+        "lat": 30.027,
+        "lon": 31.475,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-225",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-226",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-123",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 15,
+        "name": "ChargeSpot Zamalek",
+        "governorate": "Cairo",
+        "address": "Zamalek Square",
+        "area": "Zamalek",
+        "price_per_kwh": 7.5,
+        "lat": 30.061,
+        "lon": 31.219,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-227",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-124",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-125",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    },
+    {
+        "station_id": 16,
+        "name": "ChargeSpot Downtown",
+        "governorate": "Cairo",
+        "address": "Tahrir Square",
+        "area": "Downtown",
+        "price_per_kwh": 6.5,
+        "lat": 30.048,
+        "lon": 31.24,
+        "open_hour": 0,
+        "close_hour": 24,
+        "chargers": [
+            {
+                "charger_id": "DC-228",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "DC-229",
+                "charger_power_kw": 60,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            },
+            {
+                "charger_id": "AC-126",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "AC-127",
+                "charger_power_kw": 11,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            }
+        ]
+    }
+]

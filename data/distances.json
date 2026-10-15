@@ -1,0 +1,132 @@
+{
+    "Smouha": {
+        "Smouha Club": 1.2,
+        "Victor Emanuel": 2.0,
+        "Sidi Gaber Station": 3.0,
+        "Stanley Bridge": 5.0,
+        "San Stefano Mall": 7.0,
+        "Miami Beach": 9.0,
+        "Sporting Club": 3.5,
+        "Kafr Abdo Square": 2.5
+    },
+    "Sidi Gaber": {
+        "Smouha Club": 3.0,
+        "Victor Emanuel": 2.5,
+        "Sidi Gaber Station": 1.0,
+        "Stanley Bridge": 3.0,
+        "San Stefano Mall": 5.0,
+        "Miami Beach": 7.0,
+        "Sporting Club": 2.5,
+        "Kafr Abdo Square": 3.5
+    },
+    "Stanley": {
+        "Smouha Club": 5.0,
+        "Victor Emanuel": 4.5,
+        "Sidi Gaber Station": 3.0,
+        "Stanley Bridge": 1.0,
+        "San Stefano Mall": 2.5,
+        "Miami Beach": 4.5,
+        "Sporting Club": 3.5,
+        "Kafr Abdo Square": 4.5
+    },
+    "San Stefano": {
+        "Smouha Club": 7.0,
+        "Victor Emanuel": 6.5,
+        "Sidi Gaber Station": 5.0,
+        "Stanley Bridge": 2.5,
+        "San Stefano Mall": 1.0,
+        "Miami Beach": 2.5,
+        "Sporting Club": 5.5,
+        "Kafr Abdo Square": 5.5
+    },
+    "Miami": {
+        "Smouha Club": 9.0,
+        "Victor Emanuel": 8.5,
+        "Sidi Gaber Station": 7.0,
+        "Stanley Bridge": 4.5,
+        "San Stefano Mall": 2.5,
+        "Miami Beach": 1.0,
+        "Sporting Club": 7.5,
+        "Kafr Abdo Square": 7.5
+    },
+    "Sporting": {
+        "Smouha Club": 3.5,
+        "Victor Emanuel": 3.0,
+        "Sidi Gaber Station": 2.5,
+        "Stanley Bridge": 3.5,
+        "San Stefano Mall": 5.5,
+        "Miami Beach": 7.5,
+        "Sporting Club": 1.0,
+        "Kafr Abdo Square": 3.5
+    },
+    "Kafr Abdo": {
+        "Smouha Club": 2.5,
+        "Victor Emanuel": 2.5,
+        "Sidi Gaber Station": 3.5,
+        "Stanley Bridge": 4.5,
+        "San Stefano Mall": 5.5,
+        "Miami Beach": 7.5,
+        "Sporting Club": 3.5,
+        "Kafr Abdo Square": 1.0
+    },
+    "Nasr City": {
+        "Abbas El Akkad": 1.2,
+        "Makram Ebeid": 2.0,
+        "Korba": 7.0,
+        "Maadi Grand Mall": 15.0,
+        "Fifth Settlement": 12.0,
+        "South 90th": 13.0,
+        "Zamalek Square": 12.0,
+        "Tahrir Square": 10.0
+    },
+    "Heliopolis": {
+        "Abbas El Akkad": 6.5,
+        "Makram Ebeid": 7.0,
+        "Korba": 1.0,
+        "Maadi Grand Mall": 18.0,
+        "Fifth Settlement": 14.0,
+        "South 90th": 15.0,
+        "Zamalek Square": 11.0,
+        "Tahrir Square": 9.0
+    },
+    "Maadi": {
+        "Abbas El Akkad": 15.0,
+        "Makram Ebeid": 16.0,
+        "Korba": 18.0,
+        "Maadi Grand Mall": 1.0,
+        "Fifth Settlement": 13.0,
+        "South 90th": 14.0,
+        "Zamalek Square": 12.0,
+        "Tahrir Square": 10.0
+    },
+    "New Cairo": {
+        "Abbas El Akkad": 12.0,
+        "Makram Ebeid": 13.0,
+        "Korba": 14.0,
+        "Maadi Grand Mall": 13.0,
+        "Fifth Settlement": 1.5,
+        "South 90th": 2.0,
+        "Zamalek Square": 18.0,
+        "Tahrir Square": 15.0
+    },
+    "Zamalek": {
+        "Abbas El Akkad": 12.0,
+        "Makram Ebeid": 13.0,
+        "Korba": 11.0,
+        "Maadi Grand Mall": 12.0,
+        "Fifth Settlement": 18.0,
+        "South 90th": 19.0,
+        "Zamalek Square": 1.0,
+        "Tahrir Square": 4.0
+    },
+    "Downtown": {
+        "Abbas El Akkad": 10.0,
+        "Makram Ebeid": 11.0,
+        "Korba": 9.0,
+        "Maadi Grand Mall": 10.0,
+        "Fifth Settlement": 15.0,
+        "South 90th": 16.0,
+        "Zamalek Square": 4.0,
+        "Tahrir Square": 1.0
+    }
+}

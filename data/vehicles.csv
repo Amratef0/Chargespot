@@ -1,0 +1,10 @@
+vehicle_model,battery_kwh,km_per_kwh,connector
+MG ZS EV,51.0,5.5,CCS2
+Hyundai Kona Electric,64.0,6.2,CCS2
+BYD Atto 3,60.0,5.8,CCS2
+Tesla Model 3,60.0,7.0,CCS2
+Kia Niro EV,64.8,6.3,CCS2
+BMW i3,42.0,6.8,CCS2
+Nissan Leaf,40.0,6.0,CHAdeMO
+Renault Zoe,52.0,6.5,Type 2
+Renault Twingo EV,22.0,6.8,Type 2

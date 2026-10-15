@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+.streamlit/secrets.toml
+*.tmp
+# runtime data (personal details of registered users) - never commit
+data/users.json
+data/waiting.csv
+# login sessions, e-mail tokens and the development mailbox (secrets / personal data) - never commit
+data/auth_sessions.json
+data/auth_tokens.json
+data/outbox/

@@ -1,0 +1,24 @@
+[
+    {
+        "station_id": 1,
+        "name": "Tahrir EV Station",
+        "governorate": "Cairo",
+        "address": "Tahrir Square",
+        "chargers": [
+            {
+                "charger_id": "AC-101",
+                "charger_power_kw": 22,
+                "charger_status": "Available",
+                "connector_type": "Type 2",
+                "type": "AC"
+            },
+            {
+                "charger_id": "DC-201",
+                "charger_power_kw": 120,
+                "charger_status": "Available",
+                "connector_type": "CCS2",
+                "type": "DC"
+            }
+        ]
+    }
+]
