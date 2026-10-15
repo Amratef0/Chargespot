@@ -20,7 +20,6 @@ PAGE_ACCESS: dict[str, tuple[str, ...]] = {
     "driver": ("view_own", "view_any_driver"),
     "recommend": ("recommend",),
     "analytics": ("analytics",),
-    "lab": ("analytics",),
 }
 
 

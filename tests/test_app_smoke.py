@@ -39,7 +39,7 @@ def page(full_dir, name, role="admin"):
 MATRIX = [("0_Home", r) for r in CREDS] + [("1_Stations", r) for r in CREDS] + [("2_Bookings", r) for r in CREDS] + \
          [("3_Waiting_List", r) for r in CREDS] + [("4_Sessions", "operator"), ("4_Sessions", "admin")] + \
          [("5_Driver_Dashboard", "user"), ("5_Driver_Dashboard", "admin")] + \
-         [("7_Recommendation", r) for r in CREDS] + [("6_Analytics", "admin"), ("8_Algorithm_Lab", "admin")]
+         [("7_Recommendation", r) for r in CREDS] + [("6_Analytics", "admin")]
 
 
 @pytest.mark.parametrize("name,role", MATRIX)
@@ -47,7 +47,24 @@ def test_page_runs_for_allowed_role(full_dir, name, role):
     assert not page(full_dir, name, role).exception
 
 
-@pytest.mark.parametrize("name,role", [("6_Analytics", "operator"), ("6_Analytics", "user"), ("8_Algorithm_Lab", "operator"),
+def test_driver_home_is_personal_not_the_network_dashboard(full_dir):
+    at = page(full_dir, "0_Home", "user")
+    labels = [m.label for m in at.metric]
+    assert not at.exception and {"Next booking", "Energy charged", "Spent so far"} <= set(labels)
+    assert "Stations" not in labels and "Bookings (history + live)" not in labels       # the admin's numbers
+
+
+def test_operator_home_shows_operations(full_dir):
+    labels = [m.label for m in page(full_dir, "0_Home", "operator").metric]
+    assert {"Chargers available", "Active sessions", "Waiting list"} <= set(labels) and "Stations" not in labels
+
+
+def test_admin_home_keeps_the_network_overview(full_dir):
+    labels = [m.label for m in page(full_dir, "0_Home", "admin").metric]
+    assert {"Stations", "Chargers", "Bookings (history + live)"} <= set(labels)
+
+
+@pytest.mark.parametrize("name,role", [("6_Analytics", "operator"), ("6_Analytics", "user"),
                                        ("4_Sessions", "user")])
 def test_permission_is_enforced_on_restricted_pages(full_dir, name, role):
     at = page(full_dir, name, role)
@@ -184,15 +201,6 @@ def test_recommendation_warns_when_nothing_is_close_enough(full_dir):
     next(s for s in at.slider if s.label.startswith("Maximum distance")).set_value(2)
     at.run()
     assert not at.exception and (at.warning or at.success)
-
-
-def test_algorithm_lab_measures_the_three_lookup_methods(full_dir):
-    at = page(full_dir, "8_Algorithm_Lab")
-    frames = [df.value for df in at.dataframe]
-    lookup = next(f for f in frames if "method" in f.columns)
-    assert set(lookup["method"]) == {"sequential", "binary", "hash"}
-    comps = lookup.set_index("method")["comparisons"]
-    assert comps["binary"] < 20 and comps["hash"] <= 5 and comps["sequential"] > comps["binary"]
 
 
 def test_battery_monitor_validates_and_estimates(full_dir):

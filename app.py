@@ -139,7 +139,9 @@ def auth_screen():
 
 
 if user is None:
-    auth_screen()
+    # Always call st.navigation, even logged out: without it Streamlit lists every file in pages/ in the sidebar
+    # (and serves them by URL). A single hidden "page" = login screen, no sidebar, nothing else reachable.
+    st.navigation([st.Page(auth_screen, title="Login", icon="⚡")], position="hidden").run()
     st.stop()
 
 PAGES = {
@@ -151,7 +153,6 @@ PAGES = {
     "driver": st.Page("pages/5_Driver_Dashboard.py", title="Driver Dashboard", icon="🚗"),
     "recommend": st.Page("pages/7_Recommendation.py", title="Smart Recommendation", icon="🎯"),
     "analytics": st.Page("pages/6_Analytics.py", title="Admin Analytics", icon="📊"),
-    "lab": st.Page("pages/8_Algorithm_Lab.py", title="Algorithm Lab", icon="🧪"),
 }
 
 with st.sidebar:

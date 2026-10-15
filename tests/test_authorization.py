@@ -31,7 +31,7 @@ def denied(fn, *args, **kw):
 OLD_ROLE_PAGES = {   # what app.py used to hard-code: the derived menu must be identical
     "user": {"home", "recommend", "bookings", "waiting", "driver", "stations"},
     "operator": {"home", "stations", "bookings", "waiting", "sessions"},
-    "admin": {"home", "stations", "bookings", "waiting", "sessions", "driver", "recommend", "analytics", "lab"}}
+    "admin": {"home", "stations", "bookings", "waiting", "sessions", "driver", "recommend", "analytics"}}
 
 
 @pytest.mark.parametrize("cls,role", [(Driver, "user"), (StationOperator, "operator"), (Admin, "admin")])
