@@ -139,7 +139,13 @@ def auth_screen():
 
 
 if user is None:
-    auth_screen()
+    guest_page = st.Page(
+        auth_screen,
+        title="Login",
+        icon="🔐",
+        default=True,
+    )
+    st.navigation([guest_page]).run()
     st.stop()
 
 PAGES = {
