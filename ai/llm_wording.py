@@ -26,7 +26,7 @@ from dataclasses import dataclass
 from typing import Protocol
 
 API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
-DEFAULT_MODEL = os.environ.get("CHARGESPOT_LLM_MODEL", "gemini-2.5-flash")
+DEFAULT_MODEL = os.environ.get("CHARGESPOT_LLM_MODEL", "gemini-3.5-flash-lite")
 
 SYSTEM_PROMPT = (
     "You rewrite analytics answers for an EV-charging dashboard. Rewrite the given answer in one "
