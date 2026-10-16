@@ -32,11 +32,17 @@ def authorize(user, *permissions: str):
     return user
 
 
+
 def can_open(user, page_key: str) -> bool:
-    if user is None or page_key not in PAGE_ACCESS:      # unknown page: closed by default
+    if user is None or page_key not in PAGE_ACCESS:
         return False
+
+    if page_key == "home" and user.role == "user":
+        return False
+
     need = PAGE_ACCESS[page_key]
     return not need or any(user.can(p) for p in need)
+
 
 
 
