@@ -9,7 +9,7 @@ user = require_page("recommend")
 app, d = get_app(), get_data()
 st.title("Smart Station Recommendation")
 st.caption("Ranks stations for you and explains why. Rule-based and transparent: no black box. "
-           "Wait times come from the booking history (simulated + live data).")
+        "Wait times come from the booking history.")
 
 c1, c2, c3 = st.columns(3)
 veh = app.vehicle_of_driver(user.driver_id) if user.driver_id else None

@@ -15,7 +15,6 @@ sync_cookie()
 
 
 def link_actions():
-    """Links from e-mails: ?verify=<token> is checked right away; ?reset=<token> opens the new-password form."""
     qp = st.query_params
     if qp.get("verify"):
         ok, _ = run_action(app.auth.verify_email, qp.get("verify"),
