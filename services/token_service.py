@@ -61,7 +61,7 @@ class TokenStore:
     def issued_recently(self, purpose: str, email: str, within_minutes: int) -> int:
         email, since = email.strip().lower(), self.now() - timedelta(minutes=within_minutes)
         return sum(1 for r in self.records if r["purpose"] == purpose and r["email"] == email
-                   and datetime.strptime(r["created"], FMT) >= since)
+                and datetime.strptime(r["created"], FMT) >= since)
 
     def _prune(self):
         cutoff = self.now() - KEEP_HISTORY

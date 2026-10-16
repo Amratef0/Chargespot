@@ -12,7 +12,7 @@ from services.scheduler import Scheduler
 
 user = require_page("bookings")
 app = get_app()
-st.title("📅 Bookings")
+st.title("Bookings")
 show_flash()
 DURATIONS = [30, 45, 60, 90, 120, 180, 240]
 

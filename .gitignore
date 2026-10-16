@@ -12,3 +12,4 @@ data/waiting.csv
 data/auth_sessions.json
 data/auth_tokens.json
 data/outbox/
+secrets.toml

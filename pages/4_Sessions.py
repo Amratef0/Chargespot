@@ -9,7 +9,7 @@ from core.ui import flash, run_action, show_flash
 
 user = require_page("sessions")
 app = get_app()
-st.title("🔋 Charging Sessions")
+st.title("Charging Sessions")
 show_flash()
 st.caption("Planned time comes from the booking; actual time is recorded when the session starts. "
         "Use the 'simulated time' boxes to demo without waiting.")

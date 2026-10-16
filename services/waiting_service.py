@@ -84,7 +84,7 @@ class WaitingQueue:
             start = r["start_time"]
             day, s = start.strftime("%Y-%m-%d"), start.hour * 60 + start.minute
             opt = pick_charger_greedy(station.usable_chargers(r["connector"]),
-                                      lambda cid: booking_service.busy_intervals(cid, day),
+                                    lambda cid: booking_service.busy_intervals(cid, day),
                                       s, r["duration_min"], station.close_hour * 60, max_shift=0)
             if opt is None:
                 continue

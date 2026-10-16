@@ -349,17 +349,17 @@ class ChargeSpotApp:
     # ============================================================== DataFrames for Pandas / charts
     def stations_frame(self):
         rows = [(str(s.station_id), s.name, s.governorate, s.area, s.address, s.lat, s.lon,
-                 s.open_hour, s.close_hour, s.price_per_kwh) for s in self.stations.stations]
+                s.open_hour, s.close_hour, s.price_per_kwh) for s in self.stations.stations]
         return pd.DataFrame(rows, columns=STATION_COLS)
 
     def chargers_frame(self):
         rows = [(c["charger_id"], str(s.station_id), c.get("type"), c.get("connector_type"),
-                 c["charger_power_kw"], c["charger_status"]) for s in self.stations.stations for c in s.chargers]
+                c["charger_power_kw"], c["charger_status"]) for s in self.stations.stations for c in s.chargers]
         return pd.DataFrame(rows, columns=CHARGER_COLS)
 
     def bookings_frame(self):
         rows = [(str(b.booking_id), b.driver_id, str(b.station_id), b.charger_id, b.connector, b.created_at,
-                 b.start_time, b.end_time, b.duration_min, b.status, b.queued, b.wait_min)
+                b.start_time, b.end_time, b.duration_min, b.status, b.queued, b.wait_min)
                 for b in self.bookings.bookings]
         df = pd.DataFrame(rows, columns=BOOKING_COLS)
         for c in ("created_at", "start_time", "end_time"):

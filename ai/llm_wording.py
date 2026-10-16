@@ -10,10 +10,10 @@ in friendlier language. Safety design:
    back to the original answer - the demo never breaks.
 3. Privacy: only the question and the already-aggregated answer text are sent.
    No booking rows, no driver names. The API key comes from the environment
-   variable ANTHROPIC_API_KEY or Streamlit secrets - never from code.
+   variable GEMINI_API_KEY or Streamlit secrets - never from code.
 4. Off by default; the app only offers it when a key is available.
 
-No SDK needed: a plain HTTPS request via urllib (Anthropic Messages API).
+No SDK needed: a plain HTTPS request via urllib (Google Gemini generateContent API).
 """
 from __future__ import annotations
 
@@ -25,9 +25,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Protocol
 
-API_URL = "https://api.anthropic.com/v1/messages"
-API_VERSION = "2023-06-01"
-DEFAULT_MODEL = os.environ.get("CHARGESPOT_LLM_MODEL", "claude-haiku-5-5")
+API_BASE = "https://generativelanguage.googleapis.com/v1beta/models"
+DEFAULT_MODEL = os.environ.get("CHARGESPOT_LLM_MODEL", "gemini-2.5-flash")
 
 SYSTEM_PROMPT = (
     "You rewrite analytics answers for an EV-charging dashboard. Rewrite the given answer in one "
@@ -54,31 +53,33 @@ class RephraseResult:
 
 # ---------------------------------------------------------------- key handling
 def get_api_key() -> str | None:
-    key = os.environ.get("ANTHROPIC_API_KEY")
+    key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
     if key:
         return key.strip()
     try:                                                   # optional: Streamlit secrets
         import streamlit as st
-        return str(st.secrets["ANTHROPIC_API_KEY"]).strip() or None
+        return str(st.secrets["GEMINI_API_KEY"]).strip() or None
     except Exception:
         return None
 
 
 # ---------------------------------------------------------------- HTTP client
-class AnthropicHTTPClient:
-    """Minimal Messages-API client (no SDK dependency)."""
+class GeminiHTTPClient:
+    """Minimal Gemini generateContent client (no SDK dependency)."""
 
-    def __init__(self, api_key: str, model: str = DEFAULT_MODEL, timeout: float = 15.0,
-                max_tokens: int = 200):
+    def __init__(self, api_key: str, model: str = DEFAULT_MODEL, timeout: float = 20.0,
+                 max_tokens: int = 1024):
         self.api_key, self.model, self.timeout, self.max_tokens = api_key, model, timeout, max_tokens
 
     def complete(self, system: str, user: str) -> str:
-        body = json.dumps({"model": self.model, "max_tokens": self.max_tokens,
-                        "system": system,
-                        "messages": [{"role": "user", "content": user}]}).encode("utf-8")
-        req = urllib.request.Request(API_URL, data=body, method="POST", headers={
-            "content-type": "application/json", "x-api-key": self.api_key,
-            "anthropic-version": API_VERSION})
+        url = f"{API_BASE}/{self.model}:generateContent"
+        body = json.dumps({
+            "systemInstruction": {"parts": [{"text": system}]},
+            "contents": [{"role": "user", "parts": [{"text": user}]}],
+            "generationConfig": {"maxOutputTokens": self.max_tokens, "temperature": 0.2},
+        }).encode("utf-8")
+        req = urllib.request.Request(url, data=body, method="POST", headers={
+            "content-type": "application/json", "x-goog-api-key": self.api_key})
         try:
             with urllib.request.urlopen(req, timeout=self.timeout) as resp:
                 data = json.loads(resp.read().decode("utf-8"))
@@ -88,7 +89,10 @@ class AnthropicHTTPClient:
             raise LLMError(f"network error: {type(e).__name__}") from e
         except json.JSONDecodeError as e:
             raise LLMError("invalid JSON in reply") from e
-        text = "".join(b.get("text", "") for b in data.get("content", []) if b.get("type") == "text").strip()
+        parts = []
+        for cand in data.get("candidates", [])[:1]:
+            parts = cand.get("content", {}).get("parts", [])
+        text = "".join(p.get("text", "") for p in parts).strip()
         if not text:
             raise LLMError("empty reply")
         return text
@@ -96,7 +100,7 @@ class AnthropicHTTPClient:
 
 def default_client() -> LLMClient | None:
     key = get_api_key()
-    return AnthropicHTTPClient(key) if key else None
+    return GeminiHTTPClient(key) if key else None
 
 
 # ---------------------------------------------------------------- number guard
