@@ -14,7 +14,7 @@ from models.exceptions import ChargeSpotError, EmailNotVerifiedError
 from services.authz import allowed_pages
 from services.mailer import FileMailer
 
-st.set_page_config(page_title="ChargeSpot", page_icon="⚡", layout="wide")
+st.set_page_config(page_title="ChargeSpot", layout="wide")
 app = get_app()
 user = authenticate()
 sync_cookie()
@@ -25,7 +25,7 @@ def link_actions():
     qp = st.query_params
     if qp.get("verify"):
         ok, _ = run_action(app.auth.verify_email, qp.get("verify"),
-                           success="E-mail verified. You can log in now.")
+                        success="E-mail verified. You can log in now.")
         del qp["verify"]
     reset = qp.get("reset")
     if reset:
@@ -35,7 +35,7 @@ def link_actions():
             p2 = st.text_input("Confirm new password", type="password")
             if st.form_submit_button("Change password"):
                 ok, _ = run_action(app.auth.reset_password, reset, p1, p2,
-                                   success="Password changed. You can log in now.")
+                                success="Password changed. You can log in now.")
                 if ok:
                     del qp["reset"]
                     st.rerun()
@@ -51,13 +51,12 @@ def dev_mailbox_note():
                     st.code(m)
         else:
             st.caption("E-mail sending is not configured on this server, so verification and reset e-mails "
-                       "cannot be delivered.")
+                    "cannot be delivered.")
 
 
 def auth_screen():
-    st.title("⚡ ChargeSpot")
-    st.caption("EV charging: find a charger, book a slot, join the waiting list, track your sessions. "
-               "All data is simulated.")
+    st.title("ChargeSpot")
+    st.caption("EV charging: find a charger, book a slot, join the waiting list, track your sessions. \n\n")
     show_flash()
     if link_actions():
         return
@@ -103,11 +102,11 @@ def auth_screen():
                 if ok:
                     if new.verification_sent:
                         st.success(f"Account created. Your driver ID is {new.driver_id}. We sent a verification "
-                                   f"e-mail to {new.email}: open the link (or paste the code in the 'Verify e-mail' "
-                                   "tab), then log in.")
+                                f"e-mail to {new.email}: open the link (or paste the code in the 'Verify e-mail' "
+                                "tab), then log in.")
                     elif new.verification_sent is False:
                         st.warning(f"Account created (driver ID {new.driver_id}) but the verification e-mail could "
-                                   "not be sent. Use 'Verify e-mail' > 'Send a new code' in a few minutes.")
+                                    f"not be sent. Use 'Verify e-mail' > 'Send a new code' in a few minutes.")
                     else:
                         st.success(f"Account created. Your driver ID is {new.driver_id}. You can log in now.")
     with tab_ver:
@@ -141,7 +140,7 @@ def auth_screen():
 if user is None:
     # Always call st.navigation, even logged out: without it Streamlit lists every file in pages/ in the sidebar
     # (and serves them by URL). A single hidden "page" = login screen, no sidebar, nothing else reachable.
-    st.navigation([st.Page(auth_screen, title="Login", icon="⚡")], position="hidden").run()
+    st.navigation([st.Page(auth_screen, title="Login")], position="hidden").run()
     st.stop()
 
 PAGES = {
@@ -156,12 +155,11 @@ PAGES = {
 }
 
 with st.sidebar:
-    st.title("⚡ ChargeSpot")
+    st.title("ChargeSpot")
     st.markdown(f"**{user.name}**  \n{user.label}" + (f" · `{user.driver_id}`" if user.driver_id else ""))
     if st.button("Logout"):
         logout_user()
         st.rerun()
-    st.caption("All data is simulated.")
     st.caption("🌗 Theme: ⋮ menu (top right) → Settings → Theme")
 
 # the menu is DERIVED from permissions (services/authz.py): there is no second list of roles to keep in sync

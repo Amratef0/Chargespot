@@ -69,13 +69,13 @@ class AnthropicHTTPClient:
     """Minimal Messages-API client (no SDK dependency)."""
 
     def __init__(self, api_key: str, model: str = DEFAULT_MODEL, timeout: float = 15.0,
-                 max_tokens: int = 200):
+                max_tokens: int = 200):
         self.api_key, self.model, self.timeout, self.max_tokens = api_key, model, timeout, max_tokens
 
     def complete(self, system: str, user: str) -> str:
         body = json.dumps({"model": self.model, "max_tokens": self.max_tokens,
-                           "system": system,
-                           "messages": [{"role": "user", "content": user}]}).encode("utf-8")
+                        "system": system,
+                        "messages": [{"role": "user", "content": user}]}).encode("utf-8")
         req = urllib.request.Request(API_URL, data=body, method="POST", headers={
             "content-type": "application/json", "x-api-key": self.api_key,
             "anthropic-version": API_VERSION})

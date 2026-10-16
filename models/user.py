@@ -39,7 +39,7 @@ class Admin(StationOperator):
 
     def permissions(self):
         return super().permissions() | {"manage_stations", "undo", "analytics", "cancel_any", "recommend",
-                                         "view_any_driver"}
+                                        "view_any_driver"}
 
 
 ROLES = {"user": Driver, "operator": StationOperator, "admin": Admin}

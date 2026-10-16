@@ -30,7 +30,7 @@ with st.expander("Adjust what matters to you (weights)"):
         availability=w[4].slider("Free now", 0.0, 1.0, 0.10, 0.05))
 try:
     res = recommend_stations(d["stations"], d["chargers"], d["bookings"], area, connector, hour,
-                             app.scheduler.distances, weights=weights, max_distance_km=float(max_km))
+                            app.scheduler.distances, weights=weights, max_distance_km=float(max_km))
 except ValueError as e:
     st.error(str(e))
     st.stop()
@@ -47,9 +47,9 @@ else:
     m[3].metric("Fastest charger", f"{best['max_power_kw']:.0f} kW")
     st.plotly_chart(C.recommendation_breakdown(res.ranked), width="stretch")
     st.dataframe(res.ranked[["rank", "name", "score", "distance_km", "expected_wait_min", "price_per_kwh",
-                             "max_power_kw", "free_now", "compatible_chargers", "why"]], hide_index=True, width="stretch")
+                            "max_power_kw", "free_now", "compatible_chargers", "why"]], hide_index=True, width="stretch")
 if not res.excluded.empty:
     with st.expander(f"{len(res.excluded)} station(s) not shown - and why"):
         st.dataframe(res.excluded, hide_index=True, width="stretch")
 st.caption("Estimates only. Availability uses the current charger status; wait uses the booking history. "
-           "To book, open the Bookings page.")
+        "To book, open the Bookings page.")

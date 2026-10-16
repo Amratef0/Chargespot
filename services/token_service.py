@@ -38,8 +38,8 @@ class TokenStore:
                 r["used"] = True
         token = secrets.token_urlsafe(32)
         self.records.append({"hash": _h(token), "purpose": purpose, "email": email, "used": False,
-                             "created": now.strftime(FMT),
-                             "expires": (now + timedelta(minutes=TTL_MINUTES[purpose])).strftime(FMT)})
+                            "created": now.strftime(FMT),
+                            "expires": (now + timedelta(minutes=TTL_MINUTES[purpose])).strftime(FMT)})
         self._prune()
         self._save()
         return token

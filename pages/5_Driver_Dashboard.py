@@ -53,4 +53,4 @@ ordered, comps = app.sessions.sort_session_history(key, True, sess)
 st.caption(f"{len(ordered)} sessions · Merge Sort, {comps} comparisons")
 st.dataframe(pd.DataFrame([{"Session": s.session_id, "Charger": s.charger_id, "Planned start": s.planned_start,
                             "Actual start": s.start_time, "Minutes": s.duration_minutes, "kWh": s.energy_delivered_kwh}
-                           for s in ordered[:100]]), hide_index=True, width="stretch")
+                        for s in ordered[:100]]), hide_index=True, width="stretch")

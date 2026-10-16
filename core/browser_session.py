@@ -25,9 +25,9 @@ def read_cookie():
 def _script(value: str, max_age: int) -> str:
     return f"""<script>
 (function () {{
-  var p = window.parent, secure = (p.location.protocol === 'https:') ? '; Secure' : '';
-  var c = {json.dumps(COOKIE_NAME)} + '=' + {json.dumps(value)} + '; Max-Age={max_age}; Path=/; SameSite=Lax' + secure;
-  try {{ p.document.cookie = c; }} catch (e) {{ document.cookie = c; }}
+var p = window.parent, secure = (p.location.protocol === 'https:') ? '; Secure' : '';
+var c = {json.dumps(COOKIE_NAME)} + '=' + {json.dumps(value)} + '; Max-Age={max_age}; Path=/; SameSite=Lax' + secure;
+try {{ p.document.cookie = c; }} catch (e) {{ document.cookie = c; }}
 }})();
 </script>"""
 

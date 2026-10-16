@@ -17,7 +17,7 @@ import pandas as pd
 
 # the algorithms themselves live in algorithms/searching.py (team code); re-exported here for the page
 from algorithms.searching import (binary_search, binary_search_trace, is_sorted,  # noqa: E402,F401
-                                  sequential_search)
+                                sequential_search)
 
 
 # ------------------------------------------------------------ external counting
@@ -70,7 +70,7 @@ def run_search_experiment(sizes=(100, 1000, 10000), trials: int = 200, seed: int
         shuffled = sorted_ids[:]
         rng.shuffle(shuffled)
         targets = [rng.choice(sorted_ids) if t % 2 == 0 else rng.randrange(1, n * 10, 2)
-                   for t in range(trials)]                               # odd = not present
+                for t in range(trials)]                               # odd = not present
         s_cnt, b_cnt = [], []
         for t in targets:
             i, c = _measure(seq, shuffled, t)
@@ -80,7 +80,7 @@ def run_search_experiment(sizes=(100, 1000, 10000), trials: int = 200, seed: int
             assert (i == -1) == (i2 == -1), "algorithms disagree"        # correctness check
         for name, cnt, theory in (("Sequential", s_cnt, n), ("Binary", b_cnt, math.floor(math.log2(n)) + 1)):
             rows.append({"size": n, "algorithm": name,
-                         "avg_comparisons": round(sum(cnt) / len(cnt), 1),
-                         "worst_comparisons": max(cnt),
-                         "theoretical_worst": theory})
+                        "avg_comparisons": round(sum(cnt) / len(cnt), 1),
+                        "worst_comparisons": max(cnt),
+                        "theoretical_worst": theory})
     return pd.DataFrame(rows)

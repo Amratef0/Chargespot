@@ -12,8 +12,8 @@ Method (rule-based trend scoring - fully explainable, no training needed):
         risk = 100 * (0.40*power + 0.35*errors + 0.25*temperature)
     levels: High >= 60, Medium >= 20, otherwise Low.
     (Medium threshold chosen by sweeping 15/20/25/30 over 60 simulated fleets: 20 caught
-     100% of degrading chargers with ~2% false alarms; 30 missed ~13%. A missed failure
-     costs more than one extra inspection.)
+    100% of degrading chargers with ~2% false alarms; 30 missed ~13%. A missed failure
+    costs more than one extra inspection.)
 
 Why compare a charger with ITSELF? A charger that has always had many errors
 (stable but noisy) is not deteriorating; a charger whose output is falling is.
@@ -84,8 +84,8 @@ def assess_chargers(health: pd.DataFrame, chargers: pd.DataFrame | None = None,
                   and ref["power_ratio"].notna().sum() >= cfg.reference_days // 2 and len(g) >= need // 2)
         if not enough:
             rows.append({**row, "power_drop_pp": np.nan, "error_increase_per_day": np.nan,
-                         "temp_rise_c": np.nan, "risk_score": np.nan, "risk_level": "Insufficient data",
-                         "reasons": "Not enough history to compare recent and reference periods."})
+                        "temp_rise_c": np.nan, "risk_score": np.nan, "risk_level": "Insufficient data",
+                        "reasons": "Not enough history to compare recent and reference periods."})
             continue
         drop = 100 * (ref["power_ratio"].mean() - recent["power_ratio"].mean())
         err = recent["error_count"].mean() - ref["error_count"].mean()
@@ -104,9 +104,9 @@ def assess_chargers(health: pd.DataFrame, chargers: pd.DataFrame | None = None,
         if comp["temp"] >= 0.4:
             reasons.append(f"temperature up {temp:.1f} C (now {recent['temp_c'].mean():.1f} C)")
         rows.append({**row, "power_drop_pp": round(drop, 2), "error_increase_per_day": round(err, 2),
-                     "temp_rise_c": round(temp, 1), "risk_score": round(score, 1),
-                     "risk_level": _level(score, cfg),
-                     "reasons": "; ".join(reasons) if reasons else "no significant deterioration"})
+                    "temp_rise_c": round(temp, 1), "risk_score": round(score, 1),
+                    "risk_level": _level(score, cfg),
+                    "reasons": "; ".join(reasons) if reasons else "no significant deterioration"})
     out = pd.DataFrame(rows)
 
     if chargers is not None:
@@ -141,6 +141,6 @@ def evaluate_against_truth(assessment: pd.DataFrame, truth: pd.DataFrame) -> dic
         "precision": round(tp / (tp + fp), 3) if tp + fp else None,
         "recall": round(tp / (tp + fn), 3) if tp + fn else None,
         "confusion": pd.DataFrame({"flagged": [tp, fp], "not flagged": [fn, tn]},
-                                  index=["really at risk", "really healthy"]),
+                                index=["really at risk", "really healthy"]),
         "by_class": m.groupby("true_class")["risk_level"].value_counts().unstack(fill_value=0),
     }

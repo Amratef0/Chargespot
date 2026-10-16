@@ -25,12 +25,12 @@ RESET_MAX_PER_HOUR = 3                 # password-reset e-mails per address per 
 
 DEMO_USERS = [   # DEMO accounts only (fake people). Documented in the README.
     {"name": "ChargeSpot Admin", "email": "admin@chargespot.com", "password": "Admin1234", "role": "admin",
-     "email_verified": True, "phone": "0100000001", "age": 35, "gender": "male", "governorate": "CAIRO", "national_id": "29001010100001"},
+    "email_verified": True, "phone": "0100000001", "age": 35, "gender": "male", "governorate": "CAIRO", "national_id": "29001010100001"},
     {"name": "Omar Operator", "email": "operator@chargespot.com", "password": "Operator1234", "role": "operator",
-     "email_verified": True, "phone": "0100000002", "age": 30, "gender": "male", "governorate": "CAIRO", "national_id": "29001010100002"},
+    "email_verified": True, "phone": "0100000002", "age": 30, "gender": "male", "governorate": "CAIRO", "national_id": "29001010100002"},
     {"name": "Ahmed", "email": "ahmed@gmail.com", "password": "123456789", "role": "user", "email_verified": True, "phone": "0123456",
-     "age": 19 + 0, "gender": "male", "governorate": "CAIRO", "national_id": "12345678912345",
-     "driver_id": "D101", "vehicle_model": "MG ZS EV"},
+    "age": 19 + 0, "gender": "male", "governorate": "CAIRO", "national_id": "12345678912345",
+    "driver_id": "D101", "vehicle_model": "MG ZS EV"},
 ]
 
 
@@ -50,7 +50,7 @@ def verify_password(password, stored):
 
 class AuthService:
     def __init__(self, path, first_new_driver_number=401, vehicle_models=(), mailer=None, tokens=None,
-                 sessions=None, base_url=None):
+                sessions=None, base_url=None):
         """mailer=None -> e-mail verification is OFF (library/test use). The app always passes a mailer.
         `sessions` (LoginSessionStore) lets a password reset log the account out everywhere."""
         self.path = Path(path)
@@ -107,7 +107,7 @@ class AuthService:
         return user_from_dict(u) if u else None
 
     def register(self, name, email, phone, age, gender, governorate, national_id, password, confirm_password,
-                 vehicle_model=None):
+                vehicle_model=None):
         """Validate everything, report ALL problems at once, then store the new driver."""
         errors = []
         if not V.is_name(name): errors.append("Name must contain 3 to 100 characters.")
@@ -158,7 +158,7 @@ class AuthService:
         if self.base_url:
             lines += ["", f"Open this link: {self.base_url}/?verify={token}"]
         lines += ["", f"Or paste this code in the 'Verify e-mail' tab: {token}", "",
-                  "It works once and expires in 24 hours. If you did not sign up, ignore this message."]
+                "It works once and expires in 24 hours. If you did not sign up, ignore this message."]
         try:
             self._mail(email, "Verify your ChargeSpot e-mail", lines)
             return True
@@ -194,8 +194,8 @@ class AuthService:
         if self.base_url:
             lines += ["", f"Open this link: {self.base_url}/?reset={token}"]
         lines += ["", f"Or paste this code in the 'Forgot password' tab: {token}", "",
-                  "It works once and expires in 30 minutes. If this was not you, ignore this message: "
-                  "your password has not changed."]
+                "It works once and expires in 30 minutes. If this was not you, ignore this message: "
+                "your password has not changed."]
         try:
             self._mail(u["email"], "Reset your ChargeSpot password", lines)
         except MailDeliveryError:

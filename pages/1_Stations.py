@@ -25,8 +25,8 @@ with tab_find:
     for s in found:
         a = s.get_availability_summary()
         rows.append({"ID": s.station_id, "Station": s.name, "Governorate": s.governorate, "Area": s.area,
-                     "Address": s.address, "Chargers": a["total"], "Available": a["available"],
-                     "Occupied": a["occupied"], "Maintenance": a["maintenance"], "EGP/kWh": s.price_per_kwh})
+                    "Address": s.address, "Chargers": a["total"], "Available": a["available"],
+                    "Occupied": a["occupied"], "Maintenance": a["maintenance"], "EGP/kWh": s.price_per_kwh})
     st.caption(f"{len(rows)} station(s) found")
     st.dataframe(pd.DataFrame(rows), hide_index=True, width="stretch")
     if found:
@@ -85,7 +85,7 @@ with tab_manage:
         st.divider()
         n = len(svc.admin_stack.stack)
         st.write(f"**Undo stack:** {n} change(s) can be undone. Last: "
-                 f"`{svc.admin_stack.peek()['action'] if n else '-'}`")
+                f"`{svc.admin_stack.peek()['action'] if n else '-'}`")
         if st.button("↩️ Undo last admin change", disabled=n == 0):
             ok, msg = run_action(app.undo_last_admin_action, user)
             if ok and msg:

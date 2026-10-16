@@ -41,7 +41,7 @@ class ForecastResult:
     importances: pd.DataFrame              # feature, importance
     test_days: int = 14
     note: str = ("Synthetic data: accuracy shows the pipeline works, "
-                 "not real-world performance.")
+                "not real-world performance.")
 
 
 def _panel(bookings: pd.DataFrame, horizon: int) -> pd.DataFrame:
@@ -53,7 +53,7 @@ def _panel(bookings: pd.DataFrame, horizon: int) -> pd.DataFrame:
     first, last = b["date"].min(), b["date"].max()
     dates = pd.date_range(first, last + pd.Timedelta(days=horizon), freq="D")
     idx = pd.MultiIndex.from_product([sorted(b["station_id"].unique()), dates, range(24)],
-                                     names=["station_id", "date", "hour"])
+                                    names=["station_id", "date", "hour"])
     p = counts.reindex(idx).reset_index()
     p.loc[p["date"] <= last, "count"] = p.loc[p["date"] <= last, "count"].fillna(0)
     return p, last
@@ -65,7 +65,7 @@ def _features(p: pd.DataFrame) -> pd.DataFrame:
     daily = p.groupby(["station_id", "date"])["count"].sum(min_count=1).rename("daily").reset_index()
     daily = daily.sort_values(["station_id", "date"])
     daily["roll7"] = (daily.groupby("station_id")["daily"]
-                      .transform(lambda s: s.shift(7).rolling(7, min_periods=7).mean()))
+                    .transform(lambda s: s.shift(7).rolling(7, min_periods=7).mean()))
     p = p.merge(daily[["station_id", "date", "roll7"]], on=["station_id", "date"], how="left")
     p["weekday"] = p["date"].dt.weekday
     p["is_weekend"] = p["weekday"].isin(WEEKEND_DAYS).astype(int)
@@ -84,7 +84,7 @@ def _matrix(p: pd.DataFrame, stations: list[str]) -> pd.DataFrame:
 def _mk_model() -> HistGradientBoostingRegressor:
     # Poisson loss suits non-negative COUNT data (bookings per hour)
     return HistGradientBoostingRegressor(loss="poisson", max_iter=200, learning_rate=0.06,
-                                         max_depth=6, min_samples_leaf=40, random_state=42)
+                                        max_depth=6, min_samples_leaf=40, random_state=42)
 
 
 def _errors(actual, pred) -> tuple[float, float]:
@@ -126,12 +126,12 @@ def forecast_demand(bookings: pd.DataFrame, test_days: int = 14,
     mae_m, rmse_m = _errors(test["count"], test["model"])
     metrics = pd.DataFrame({
         "method": ["Naive (same hour last week)", "Baseline (historical average)",
-                   "ML model (Poisson gradient boosting)"],
+                "ML model (Poisson gradient boosting)"],
         "MAE": [round(mae_n, 3), round(mae_b, 3), round(mae_m, 3)],
         "RMSE": [round(rmse_n, 3), round(rmse_b, 3), round(rmse_m, 3)],
     })
     metrics["MAE_vs_baseline_pct"] = [round(100 * (mae_b - m) / mae_b, 1) if mae_b else 0.0
-                                      for m in (mae_n, mae_b, mae_m)]
+                                    for m in (mae_n, mae_b, mae_m)]
 
     Xte = _matrix(test, stations)
     pi = permutation_importance(model, Xte, test["count"], n_repeats=3, random_state=0,
@@ -148,5 +148,5 @@ def forecast_demand(bookings: pd.DataFrame, test_days: int = 14,
     test["ts"] = test["date"] + pd.to_timedelta(test["hour"], unit="h")
     tp = test[["station_id", "ts", "count", "baseline", "model"]].rename(columns={"count": "actual"})
     return ForecastResult(metrics=metrics, test_predictions=tp.reset_index(drop=True),
-                          future=fut[["station_id", "ts", "predicted_bookings"]].reset_index(drop=True),
-                          importances=imp, test_days=test_days)
+                        future=fut[["station_id", "ts", "predicted_bookings"]].reset_index(drop=True),
+                        importances=imp, test_days=test_days)

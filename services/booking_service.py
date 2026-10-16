@@ -85,12 +85,12 @@ class BookingService:
         s, e = _minute(start), _minute(start) + duration_min
         if s < station.open_hour * 60 or e > station.close_hour * 60:
             raise ValidationError(f"{station.name} is open {station.open_hour:02d}:00-{station.close_hour:02d}:00; "
-                                  "the session must finish before closing time.")
+                                "the session must finish before closing time.")
         if not allow_past and start < (now or datetime.now()):
             raise ValidationError("You cannot book a time in the past.")
 
     def create_booking(self, driver_id, station, charger, start, duration_min, now=None, allow_past=False,
-                       queued=0, wait_min=0, created_at=None):
+                    queued=0, wait_min=0, created_at=None):
         self.validate_request(station, charger, start, duration_min, now, allow_past)
         end = start + timedelta(minutes=duration_min)
         if self.check_booking_overlap(charger["charger_id"], start, end):
@@ -131,7 +131,7 @@ class BookingService:
     def sorted_by_start(self, bookings=None, reverse=False):
         """Bookings ordered by start time with the team's Merge Sort -> (sorted_list, comparisons)."""
         return merge_sort(self.bookings if bookings is None else bookings,
-                          key=lambda b: b.start_time, reverse=reverse)
+                        key=lambda b: b.start_time, reverse=reverse)
 
     # ------------------------------------------------------------ status changes
     def cancel_booking(self, booking_id, driver_id=None):
@@ -173,7 +173,7 @@ class BookingService:
                     row.append("Maintenance")
                     continue
                 busy = any(intervals_overlap(h * 60, h * 60 + 60, s, e)
-                           for s, e, _ in self.busy_intervals(c["charger_id"], day))
+                        for s, e, _ in self.busy_intervals(c["charger_id"], day))
                 row.append("Booked" if busy else "Free")
             grid.append(row)
         return grid

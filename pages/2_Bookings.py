@@ -23,7 +23,7 @@ def book_tab():
         st.stop()
     connector = veh["connector"]
     st.caption(f"Your vehicle: **{veh['vehicle_model']}** → connector **{connector}**. "
-               "Only chargers with this connector are offered.")
+            "Only chargers with this connector are offered.")
     with st.form("search"):
         c = st.columns(4)
         area = c[0].selectbox("Your area", Scheduler.get_areas(app.stations.stations))
@@ -34,7 +34,7 @@ def book_tab():
         if st.form_submit_button("Find stations"):
             h, m = map(int, hhmm.split(":"))
             st.session_state["booking_search"] = {"area": area, "connector": connector, "duration": dur,
-                                                  "start": datetime.combine(day, time(h, m))}
+                                                "start": datetime.combine(day, time(h, m))}
     q = st.session_state.get("booking_search")
     if q:
         options = app.find_station_options(q["area"], q["connector"], q["start"], q["duration"])
@@ -56,7 +56,7 @@ def book_tab():
                     if ok and res["status"] == "confirmed":
                         b = res["booking"]
                         st.success(f"Booking #{b.booking_id} confirmed: {b.station_name}, charger {b.charger_id}, "
-                                   f"{b.start_time:%d %b %H:%M}-{b.end_time:%H:%M}.")
+                                f"{b.start_time:%d %b %H:%M}-{b.end_time:%H:%M}.")
                         st.session_state.pop("booking_search")
                     elif ok:
                         st.warning("Someone just took that slot. Search again.")
@@ -66,12 +66,12 @@ def book_tab():
                     label = f"Book {minutes_to_time(alt.start_min)} on {alt.charger_id} (+{alt.wait_min} min)"
                     if st.button(label, key=f"alt{i}"):
                         ok, b = run_action(app.book_alternative, user, pick["station"], alt,
-                                           q["start"].strftime("%Y-%m-%d"), q["duration"],
-                                           success=lambda b: f"Booking #{b.booking_id} confirmed at {b.start_time:%H:%M}.")
-                if st.button("⏳ Join the waiting list for the original time"):
+                                        q["start"].strftime("%Y-%m-%d"), q["duration"],
+                                        success=lambda b: f"Booking #{b.booking_id} confirmed at {b.start_time:%H:%M}.")
+                if st.button(" Join the waiting list for the original time"):
                     ok, r = run_action(app.join_waiting_list, user, pick["station"], q["connector"], q["start"],
-                                       q["duration"], success=lambda r: f"You are number {r['position']} in the waiting list "
-                                                                       f"(request #{r['request_id']}).")
+                                    q["duration"], success=lambda r: f"You are number {r['position']} in the waiting list "
+                                                                    f"(request #{r['request_id']}).")
 
 
 
@@ -84,7 +84,7 @@ def mine_tab():
         st.caption(f"Newest first, ordered with our Merge Sort ({comps} comparisons).")
         st.dataframe(pd.DataFrame([{"ID": b.booking_id, "Station": b.station_name, "Charger": b.charger_id,
                                     "Start": b.start_time, "End": b.end_time, "Status": b.status} for b in ordered[:200]]),
-                     hide_index=True, width="stretch")
+                    hide_index=True, width="stretch")
         active = [b for b in ordered if b.status == "Confirmed" and b.end_time > app.now()]
         if active:
             sel = st.selectbox("Cancel a booking", active, format_func=lambda b: f"#{b.booking_id} {b.station_name} {b.start_time:%d %b %H:%M}")

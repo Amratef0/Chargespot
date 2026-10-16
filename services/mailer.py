@@ -85,6 +85,6 @@ def build_mailer(data_dir):
     if host:
         user = os.environ.get("CHARGESPOT_SMTP_USER", "")
         return SMTPMailer(host, os.environ.get("CHARGESPOT_SMTP_PORT", "587"), user,
-                          os.environ.get("CHARGESPOT_SMTP_PASSWORD", ""),
-                          os.environ.get("CHARGESPOT_MAIL_FROM") or user or "no-reply@chargespot.local")
+                        os.environ.get("CHARGESPOT_SMTP_PASSWORD", ""),
+                        os.environ.get("CHARGESPOT_MAIL_FROM") or user or "no-reply@chargespot.local")
     return FileMailer(Path(data_dir) / "outbox")

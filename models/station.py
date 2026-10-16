@@ -14,7 +14,7 @@ from pathlib import Path
 
 from models.charger import ALL_CONNECTORS, CHARGER_STATUSES
 from models.exceptions import (ChargerInUseError, DuplicateIDError, InvalidStatusError,
-                               NotFoundError, ValidationError)
+                            NotFoundError, ValidationError)
 from utils.validators import require_id
 
 DEFAULT_PATH = Path(__file__).resolve().parents[1] / "data" / "stations.json"
@@ -107,8 +107,8 @@ class Station:
     @staticmethod
     def from_dict(s):
         st = Station(s["station_id"], s["name"], s["governorate"], s["address"], s.get("area"),
-                     s.get("price_per_kwh", 6.0), s.get("lat"), s.get("lon"),
-                     s.get("open_hour", 0), s.get("close_hour", 24))
+                    s.get("price_per_kwh", 6.0), s.get("lat"), s.get("lon"),
+                    s.get("open_hour", 0), s.get("close_hour", 24))
         st.chargers = s.get("chargers", [])
         return st
 

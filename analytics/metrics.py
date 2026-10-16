@@ -25,7 +25,7 @@ DECIDED = ("Completed", "Cancelled", "No-Show")
 
 # ---------------------------------------------------------------- filtering
 def filter_period(bookings: pd.DataFrame, sessions: pd.DataFrame,
-                  start=None, end=None, station_ids=None, connectors=None):
+                start=None, end=None, station_ids=None, connectors=None):
     """Apply the dashboard filters to bookings and sessions consistently."""
     b, s = bookings, sessions
     if start is not None:
@@ -100,7 +100,7 @@ def demand_by_weekday(bookings: pd.DataFrame) -> pd.DataFrame:
     daily["wd"] = daily["date"].dt.weekday
     g = daily.groupby("wd")["n"].agg(["sum", "mean"]).reindex(range(7), fill_value=0)
     return pd.DataFrame({"weekday": WEEKDAY_NAMES, "bookings": g["sum"].astype(int).to_numpy(),
-                         "avg_per_day": g["mean"].round(1).to_numpy()})
+                        "avg_per_day": g["mean"].round(1).to_numpy()})
 
 
 def demand_heatmap(bookings: pd.DataFrame) -> pd.DataFrame:
@@ -166,13 +166,13 @@ def station_utilization(sessions: pd.DataFrame, chargers: pd.DataFrame,
 
     out = stations[["station_id", "name", "city"]].copy().set_index("station_id")
     out["open_hours"] = (stations.set_index("station_id")["close_hour"]
-                         - stations.set_index("station_id")["open_hour"])
+                        - stations.set_index("station_id")["open_hour"])
     out["active_chargers"] = n_ch.reindex(out.index).fillna(0).astype(int)
     out = out.join(agg).fillna({"busy_min": 0, "sessions": 0, "energy_kwh": 0,
                                 "revenue_egp": 0, "avg_delay_min": 0})
     out["capacity_min"] = out["active_chargers"] * out["open_hours"] * 60 * days
     out["utilization_pct"] = (100 * out["busy_min"] / out["capacity_min"].where(out["capacity_min"] > 0)
-                              ).clip(upper=100).fillna(0).round(1)
+                            ).clip(upper=100).fillna(0).round(1)
     for c in ("energy_kwh", "revenue_egp", "avg_delay_min"):
         out[c] = out[c].round(1)
     out["sessions"] = out["sessions"].astype(int)
@@ -190,12 +190,12 @@ def station_booking_stats(bookings: pd.DataFrame, stations: pd.DataFrame) -> pd.
     for sid, g in bookings.groupby("station_id"):
         w = waiting_stats(g)
         rows.append({"station_id": sid, "bookings": len(g),
-                     "cancellation_rate_pct": cancellation_rate(g),
-                     "no_show_rate_pct": no_show_rate(g),
-                     "queued_share_pct": w["queued_share_pct"],
-                     "avg_wait_min": w["avg_wait_min"]})
+                    "cancellation_rate_pct": cancellation_rate(g),
+                    "no_show_rate_pct": no_show_rate(g),
+                    "queued_share_pct": w["queued_share_pct"],
+                    "avg_wait_min": w["avg_wait_min"]})
     out = pd.DataFrame(rows, columns=["station_id", "bookings", "cancellation_rate_pct",
-                                      "no_show_rate_pct", "queued_share_pct", "avg_wait_min"])
+                                    "no_show_rate_pct", "queued_share_pct", "avg_wait_min"])
     return stations[["station_id", "name"]].merge(out, on="station_id", how="left").fillna(0)
 
 

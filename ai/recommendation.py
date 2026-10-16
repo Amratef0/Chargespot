@@ -14,11 +14,11 @@ where every criterion is scaled to 0..1 (1 = best) on an ABSOLUTE, explainable s
 would squash the difference between a 3 km and a 10 km station.)
 
 * eligible = open at the requested hour AND has an active (not in Maintenance)
-  charger with the driver's connector. Others are returned in `excluded` with
-  the reason, so nothing disappears silently.
+charger with the driver's connector. Others are returned in `excluded` with
+the reason, so nothing disappears silently.
 * expected wait is DATA-DRIVEN: the historical average wait of bookings at that
-  station (same connector) starting within +-1 hour of the requested hour,
-  counting bookings that did not wait as 0.
+station (same connector) starting within +-1 hour of the requested hour,
+counting bookings that did not wait as 0.
 * availability = compatible chargers currently "Available" / compatible chargers.
 
 Distances come from the team's matrix (data/distances.json: driver's area -> station address).
@@ -107,9 +107,9 @@ def _explain(row: pd.Series, scaled: pd.Series) -> str:
 
 
 def recommend_stations(stations: pd.DataFrame, chargers: pd.DataFrame, bookings: pd.DataFrame,
-                       driver_area: str, connector: str, target_hour: int, distances: dict,
-                       weights: Weights | None = None, max_distance_km: float | None = None,
-                       top_n: int | None = None) -> RecommendationResult:
+                    driver_area: str, connector: str, target_hour: int, distances: dict,
+                    weights: Weights | None = None, max_distance_km: float | None = None,
+                    top_n: int | None = None) -> RecommendationResult:
     """Rank stations for one driver request. Raises ValueError on invalid input."""
     w = (weights or Weights()).validated()
     if connector not in CONNECTORS:
@@ -123,7 +123,7 @@ def recommend_stations(stations: pd.DataFrame, chargers: pd.DataFrame, bookings:
     for st in stations.itertuples(index=False):
         dist = distances[driver_area].get(st.address)            # Member 2's matrix: area -> station address
         ch = chargers[(chargers["station_id"] == st.station_id) & (chargers["status"] != "Maintenance")
-                      & (chargers["connector"] == connector)]
+                    & (chargers["connector"] == connector)]
         reason = None
         if dist is None:
             reason = f"no route data from {driver_area}"
@@ -138,10 +138,10 @@ def recommend_stations(stations: pd.DataFrame, chargers: pd.DataFrame, bookings:
             continue
         wait, basis = _expected_wait(bookings, st.station_id, connector, int(target_hour))
         rows.append({"station_id": st.station_id, "name": st.name, "city": st.city, "lat": st.lat,
-                     "lon": st.lon, "distance_km": float(dist), "expected_wait_min": round(wait, 1),
-                     "wait_basis": basis, "price_per_kwh": st.price_per_kwh,
-                     "max_power_kw": float(ch["power_kw"].max()), "compatible_chargers": len(ch),
-                     "free_now": int((ch["status"] == "Available").sum())})
+                    "lon": st.lon, "distance_km": float(dist), "expected_wait_min": round(wait, 1),
+                    "wait_basis": basis, "price_per_kwh": st.price_per_kwh,
+                    "max_power_kw": float(ch["power_kw"].max()), "compatible_chargers": len(ch),
+                    "free_now": int((ch["status"] == "Available").sum())})
     ex = pd.DataFrame(excluded, columns=["station_id", "name", "distance_km", "reason"])
     if not rows:
         return RecommendationResult(ranked=pd.DataFrame(), excluded=ex, weights=w)

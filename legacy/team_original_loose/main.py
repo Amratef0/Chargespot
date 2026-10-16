@@ -45,7 +45,7 @@ def display_waiting_list():
                 station_name = station.name
                 break
         print("Request ID:", request["request_id"], "| Driver:", request["driver_id"], "| Station:", station_name,
-              "| Time:", request["start_time"], "-", request["end_time"])
+            "| Time:", request["start_time"], "-", request["end_time"])
 
 
 def display_all_bookings():
@@ -55,7 +55,7 @@ def display_all_bookings():
         return
     for booking in booking_service.bookings:
         print("Booking ID:", booking.booking_id, "| Driver:", booking.driver_id, "| Station:", booking.station_name,
-              "| Time:", booking.start_time, "-", booking.end_time, "| Status:", booking.status)
+            "| Time:", booking.start_time, "-", booking.end_time, "| Status:", booking.status)
 
 
 def display_my_bookings(driver_id):
@@ -69,7 +69,7 @@ def display_my_bookings(driver_id):
         return
     for booking in my_bookings:
         print("Booking ID:", booking.booking_id, "| Station:", booking.station_name, "| Time:",
-              booking.start_time, "-", booking.end_time, "| Status:", booking.status)
+            booking.start_time, "-", booking.end_time, "| Status:", booking.status)
 
 
 def make_booking(driver_id):
@@ -137,7 +137,7 @@ def cancel_my_booking(driver_id):
     print("\nYour Active Bookings:")
     for booking in my_active_bookings:
         print("Booking ID:", booking.booking_id, "| Station:", booking.station_name,
-              "| Time:", booking.start_time, "-", booking.end_time)
+            "| Time:", booking.start_time, "-", booking.end_time)
     booking_input = input("\nEnter Booking ID to cancel: ")
     if not booking_input.isdigit():
         print("Invalid Booking ID.")
@@ -184,7 +184,7 @@ def cancel_my_waiting_request(driver_id):
                 station_name = station.name
                 break
         print("Request ID:", request["request_id"], "| Station:", station_name,
-              "| Time:", request["start_time"], "-", request["end_time"])
+            "| Time:", request["start_time"], "-", request["end_time"])
     request_input = input("\nEnter Request ID to cancel: ")
     if not request_input.isdigit():
         print("Invalid Request ID.")

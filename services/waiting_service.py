@@ -25,8 +25,8 @@ class WaitingQueue:
             if r["driver_id"] == driver_id and r["station_id"] == station_id and r["start_time"] == start_time:
                 raise ValidationError("You are already waiting for this station and time.")
         req = {"request_id": self.next_request_id, "driver_id": driver_id, "station_id": station_id,
-               "connector": connector, "start_time": start_time, "duration_min": duration_min,
-               "created_at": created_at or datetime.now()}
+            "connector": connector, "start_time": start_time, "duration_min": duration_min,
+            "created_at": created_at or datetime.now()}
         self.next_request_id += 1
         req["position"] = self.queue.enqueue(req)
         return req

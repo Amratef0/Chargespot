@@ -16,7 +16,7 @@ st.metric("Drivers waiting", len(q))
 nxt = q.peek()
 if nxt:
     st.caption(f"Next in line (head of the queue): request #{nxt['request_id']} for {names.get(nxt['station_id'], '?')} "
-               f"at {nxt['start_time']:%d %b %H:%M}.")
+            f"at {nxt['start_time']:%d %b %H:%M}.")
 
 if user.driver_id:
     st.subheader("My waiting requests")
@@ -26,7 +26,7 @@ if user.driver_id:
     else:
         st.dataframe(pd.DataFrame([{"Request": r["request_id"], "Position": pos, "Station": names.get(r["station_id"]),
                                     "Wanted time": r["start_time"], "Minutes": r["duration_min"]} for pos, r in mine]),
-                     hide_index=True, width="stretch")
+                    hide_index=True, width="stretch")
         sel = st.selectbox("Cancel a request", [r for _, r in mine], format_func=lambda r: f"#{r['request_id']}")
         if st.button("Cancel waiting request"):
             ok, _ = run_action(app.cancel_waiting, user, sel["request_id"])
@@ -44,7 +44,7 @@ if user.can("manage_waiting"):
                                     "Station": names.get(r["station_id"]), "Connector": r["connector"],
                                     "Wanted time": r["start_time"], "Minutes": r["duration_min"],
                                     "Waiting since": r["created_at"]} for i, r in enumerate(items)]),
-                     hide_index=True, width="stretch")
+                    hide_index=True, width="stretch")
         sel = st.selectbox("Remove a request", items, format_func=lambda r: f"#{r['request_id']} ({r['driver_id']})", key="adm")
         if st.button("Remove request"):
             ok, _ = run_action(app.cancel_waiting, user, sel["request_id"])

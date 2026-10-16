@@ -43,4 +43,4 @@ SESSION_COLS = ["session_id", "booking_id", "driver_id", "station_id",
 
 # Columns the cleaner cannot work without
 REQUIRED_BOOKING_COLS = ["booking_id", "station_id", "charger_id",
-                         "connector", "start_time", "duration_min", "status"]
+                        "connector", "start_time", "duration_min", "status"]

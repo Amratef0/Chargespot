@@ -10,12 +10,12 @@ from analytics import metrics as M
 
 PALETTE = ["#2E86AB", "#F6AE2D", "#33A17B", "#E4572E", "#8E6C8A"]
 STATUS_COLORS = {"Completed": "#33A17B", "Cancelled": "#E4572E", "No-Show": "#F6AE2D",
-                 "Confirmed": "#2E86AB", "Waiting": "#8E6C8A"}
+                "Confirmed": "#2E86AB", "Waiting": "#8E6C8A"}
 
 
 def _tidy(fig: go.Figure, height: int = 360) -> go.Figure:
     fig.update_layout(height=height, margin=dict(l=10, r=10, t=50, b=10),
-                      legend=dict(orientation="h", y=-0.2))
+                    legend=dict(orientation="h", y=-0.2))
     return fig
 
 
@@ -25,7 +25,7 @@ def bookings_by_hour(bookings: pd.DataFrame) -> go.Figure:
     colors = [PALETTE[3] if v == peak and peak > 0 else PALETTE[0] for v in d["bookings"]]
     fig = go.Figure(go.Bar(x=d["hour"], y=d["bookings"], marker_color=colors))
     fig.update_layout(title="Bookings by start hour (peak in red)",
-                      xaxis=dict(title="Hour of day", dtick=1), yaxis_title="Bookings")
+                    xaxis=dict(title="Hour of day", dtick=1), yaxis_title="Bookings")
     return _tidy(fig)
 
 
@@ -41,9 +41,9 @@ def daily_trend(bookings: pd.DataFrame) -> go.Figure:
     d = M.daily_demand(bookings)
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=d["date"], y=d["bookings"], name="Daily bookings",
-                             mode="lines", line=dict(color="#B8D4E3", width=1)))
+                            mode="lines", line=dict(color="#B8D4E3", width=1)))
     fig.add_trace(go.Scatter(x=d["date"], y=d["rolling_avg"], name="7-day average",
-                             mode="lines", line=dict(color=PALETTE[0], width=3)))
+                            mode="lines", line=dict(color=PALETTE[0], width=3)))
     fig.update_layout(title="Daily demand over time", yaxis_title="Bookings")
     return _tidy(fig)
 
@@ -59,8 +59,8 @@ def weekday_demand(bookings: pd.DataFrame) -> go.Figure:
 def utilization_by_station(util: pd.DataFrame) -> go.Figure:
     d = util.sort_values("utilization_pct")
     fig = go.Figure(go.Bar(x=d["utilization_pct"], y=d["name"], orientation="h",
-                           marker_color=PALETTE[0],
-                           text=d["utilization_pct"].map("{:.1f}%".format), textposition="outside"))
+                        marker_color=PALETTE[0],
+                        text=d["utilization_pct"].map("{:.1f}%".format), textposition="outside"))
     fig.update_layout(title="Utilization by station", xaxis_title="Utilization (%)")
     return _tidy(fig)
 
@@ -68,7 +68,7 @@ def utilization_by_station(util: pd.DataFrame) -> go.Figure:
 def status_distribution(bookings: pd.DataFrame) -> go.Figure:
     d = M.status_counts(bookings)
     fig = go.Figure(go.Pie(labels=d["status"], values=d["bookings"], hole=0.5,
-                           marker_colors=[STATUS_COLORS.get(s, "#999") for s in d["status"]]))
+                        marker_colors=[STATUS_COLORS.get(s, "#999") for s in d["status"]]))
     fig.update_layout(title="Booking status distribution")
     return _tidy(fig, 340)
 
@@ -82,9 +82,9 @@ def station_comparison(stats: pd.DataFrame, column: str, title: str, unit: str) 
 
 def search_comparison(df: pd.DataFrame) -> go.Figure:
     fig = px.line(df, x="size", y="avg_comparisons", color="algorithm", markers=True,
-                  log_x=True, log_y=True, color_discrete_sequence=[PALETTE[3], PALETTE[0]])
+                log_x=True, log_y=True, color_discrete_sequence=[PALETTE[3], PALETTE[0]])
     fig.update_layout(title="Average comparisons: sequential vs binary search (log scales)",
-                      xaxis_title="Number of records", yaxis_title="Average comparisons")
+                    xaxis_title="Number of records", yaxis_title="Average comparisons")
     return _tidy(fig)
 
 

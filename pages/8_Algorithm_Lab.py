@@ -13,12 +13,12 @@ require_page("lab")
 app = get_app()
 st.title("Algorithm Lab")
 st.caption("Every algorithm in the project is written by the team (no built-in sort/search in the required parts). "
-           "This page measures them on the real data.")
+        "This page measures them on the real data.")
 t_hash, t_stack, t_sort, t_search, t_greedy = st.tabs(["Hash table", "Stack & Queue", "Sorting", "Searching", "Greedy"])
 
 with t_hash:
     st.write("**Where it is used:** ID registries for stations, chargers and bookings (`algorithms/hash_table.py`). "
-             "Separate chaining, own hash function, automatic resize.")
+            "Separate chaining, own hash function, automatic resize.")
     rows = [("Stations", app.stations.station_index), ("Chargers", app.stations.charger_index),
             ("Bookings", app.bookings._by_id)]
     st.dataframe(pd.DataFrame([{"Registry": n, **t.stats()} for n, t in rows]), hide_index=True, width="stretch")
@@ -32,9 +32,9 @@ with t_hash:
         demo.collisions += bool(b)
         b.append([k, 1])
     st.dataframe(pd.DataFrame({"bucket": range(size), "keys (chain)": [", ".join(k for k, _ in b) or "-" for b in demo.buckets]}),
-                 hide_index=True, width="stretch")
+                hide_index=True, width="stretch")
     st.caption(f"Collisions: {demo.collisions}. Keys in the same bucket are kept in a chain, so nothing is overwritten "
-               "(the original version lost one of them).")
+            "(the original version lost one of them).")
 
 with t_stack:
     c1, c2 = st.columns(2)
@@ -67,7 +67,7 @@ with t_search:
     res = L.lookup_experiment(app.bookings.bookings, int(bid), app.bookings._by_id)
     st.dataframe(pd.DataFrame([{"method": k, **res[k]} for k in ("sequential", "binary", "hash")]), hide_index=True, width="stretch")
     st.caption(f"The booking service also uses binary search on every booking: it checks overlaps against the sorted busy list "
-               f"of one charger/day ({app.bookings.search_comparisons:,} comparisons so far).")
+                f"of one charger/day ({app.bookings.search_comparisons:,} comparisons so far).")
     items = st.text_input("Binary search trace on numbers", "3, 8, 15, 21, 34, 42, 57, 63, 78, 91")
     tgt = st.number_input("Search for", value=42, step=1)
     try:
@@ -78,7 +78,7 @@ with t_search:
 
 with t_greedy:
     st.write("**Greedy rule (`algorithms/greedy_scheduler.py`):** earliest free start on the compatible charger that "
-             "can start soonest. Fast and simple, but it never reconsiders earlier choices.")
+            "can start soonest. Fast and simple, but it never reconsiders earlier choices.")
     reqs, ch = SO.counter_example()
     summary, _ = SO.compare_strategies(reqs, ch, close_min=1440, max_wait=1000, include_optimal=True)
     st.write("Counter-example (one charger, a long session booked first, two short ones after it):")

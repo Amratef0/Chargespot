@@ -41,7 +41,7 @@ class _Connected(Charger):
         super().__init__(charger_id, charger_power_kw, charger_status)
         if connector_type not in self.allowed_connectors:
             raise ValidationError(f"A {self.charger_type} charger cannot use connector '{connector_type}'. "
-                                  f"Allowed: {list(self.allowed_connectors)}")
+                                f"Allowed: {list(self.allowed_connectors)}")
         if not charger_id.startswith(self.charger_type + "-"):
             raise ValidationError(f"{self.charger_type} charger IDs must start with '{self.charger_type}-'.")
         self.connector_type = connector_type

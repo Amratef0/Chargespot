@@ -26,12 +26,12 @@ alone would be misleading: a plan can look "faster" simply by serving fewer driv
 
 HONEST LIMITS
 * `optimal` is optimal over all request ORDERS (so over all list schedules); it
-  is exponential: refused above MAX_EXACT requests.
+is exponential: refused above MAX_EXACT requests.
 * Re-planning a whole day offline assumes all requests are known in advance.
-  In real time you cannot know future requests, so the gain is an upper bound.
+In real time you cannot know future requests, so the gain is an upper bound.
 * The ordering uses a `sort_fn` argument (default Python `sorted`) because this
-  is not one of the course's required manual-sorting parts; pass Member 3's
-  merge_sort at integration time to use the team's own implementation.
+is not one of the course's required manual-sorting parts; pass Member 3's
+merge_sort at integration time to use the team's own implementation.
 """
 from __future__ import annotations
 
@@ -108,7 +108,7 @@ def _place(req: Request, busy: dict, chargers: list, close_min: int, max_wait: i
 
 
 def schedule_in_order(ordered: list[Request], chargers: list[dict], close_min: int = 1440,
-                      max_wait: int = 90, strategy: str = "custom") -> Plan:
+                    max_wait: int = 90, strategy: str = "custom") -> Plan:
     busy = {c["charger_id"]: [] for c in chargers}
     plan = Plan(strategy, penalty=max_wait)
     for r in ordered:
@@ -119,7 +119,7 @@ def schedule_in_order(ordered: list[Request], chargers: list[dict], close_min: i
         t, cid = got
         bisect.insort(busy[cid], (t, t + r.duration))
         plan.assignments.append({"req_id": r.req_id, "charger_id": cid, "start": t,
-                                 "end": t + r.duration, "wait": t - r.desired_start})
+                                "end": t + r.duration, "wait": t - r.desired_start})
     return plan
 
 
@@ -151,7 +151,7 @@ def best_heuristic(requests, chargers, close_min=1440, max_wait=90, sort_fn=sort
 
 
 def local_search(requests, chargers, close_min=1440, max_wait=90, sort_fn=sorted,
-                 max_passes: int = 4) -> Plan:
+                max_passes: int = 4) -> Plan:
     """Hill climbing: start from the best heuristic order, swap pairs while the objective improves."""
     start = best_heuristic(requests, chargers, close_min, max_wait, sort_fn)
     by_id = {r.req_id: r for r in requests}
@@ -178,7 +178,7 @@ def optimal(requests, chargers, close_min=1440, max_wait=90) -> Plan:
     n = len(requests)
     if n > MAX_EXACT:
         raise ValueError(f"Exact search is limited to {MAX_EXACT} requests (got {n}); "
-                         "it grows as n! - use local_search for bigger batches.")
+                        "it grows as n! - use local_search for bigger batches.")
     reqs = list(requests)
     best = {"obj": 10 ** 12, "assign": None, "unserved": None}
     busy = {c["charger_id"]: [] for c in chargers}
@@ -200,7 +200,7 @@ def optimal(requests, chargers, close_min=1440, max_wait=90) -> Plan:
             iv = (t, t + r.duration)
             bisect.insort(busy[cid], iv)
             assigned.append({"req_id": r.req_id, "charger_id": cid, "start": t,
-                             "end": t + r.duration, "wait": t - r.desired_start})
+                            "end": t + r.duration, "wait": t - r.desired_start})
             rec(rest, assigned, unserved, wait + (t - r.desired_start))
             assigned.pop()
             busy[cid].remove(iv)
@@ -211,11 +211,11 @@ def optimal(requests, chargers, close_min=1440, max_wait=90) -> Plan:
 
 # ---------------------------------------------------------------- comparison
 def compare_strategies(requests: list[Request], chargers: list[dict], close_min: int = 1440,
-                       max_wait: int = 90, include_optimal: bool = False, sort_fn=sorted):
+                    max_wait: int = 90, include_optimal: bool = False, sort_fn=sorted):
     """Run all strategies. Returns (summary DataFrame, {strategy: Plan})."""
     if not requests:
         return pd.DataFrame(columns=["strategy", "served", "unserved", "total_wait_min",
-                                     "avg_wait_min", "max_wait_min", "cost", "cost_saved_vs_fcfs_pct"]), {}
+                                    "avg_wait_min", "max_wait_min", "cost", "cost_saved_vs_fcfs_pct"]), {}
     plans = {
         "fcfs": fcfs(requests, chargers, close_min, max_wait, sort_fn),
         "shortest_first": shortest_first(requests, chargers, close_min, max_wait, sort_fn),
@@ -230,9 +230,9 @@ def compare_strategies(requests: list[Request], chargers: list[dict], close_min:
     for name, p in plans.items():
         saved = 100 * (base.cost - p.cost) / base.cost if base.cost else 0.0
         rows.append({"strategy": name, "served": p.served, "unserved": len(p.unserved),
-                     "total_wait_min": p.total_wait, "avg_wait_min": round(p.avg_wait, 1),
-                     "max_wait_min": p.max_wait, "cost": p.cost,
-                     "cost_saved_vs_fcfs_pct": round(saved, 1)})
+                    "total_wait_min": p.total_wait, "avg_wait_min": round(p.avg_wait, 1),
+                    "max_wait_min": p.max_wait, "cost": p.cost,
+                    "cost_saved_vs_fcfs_pct": round(saved, 1)})
     return pd.DataFrame(rows), plans
 
 
@@ -267,7 +267,7 @@ def requests_from_bookings(bookings: pd.DataFrame, station_id: str, day) -> list
     """
     day = pd.Timestamp(day).normalize()
     b = bookings[(bookings["station_id"] == station_id)
-                 & (bookings["start_time"] >= day) & (bookings["start_time"] < day + pd.Timedelta(days=1))]
+                & (bookings["start_time"] >= day) & (bookings["start_time"] < day + pd.Timedelta(days=1))]
     b = b[b["status"].isin(["Completed", "No-Show"]) | (b["queued"] == 1)]
     out = []
     for r in b.itertuples(index=False):

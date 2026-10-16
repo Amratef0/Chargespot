@@ -3,9 +3,9 @@
     clean_df, report = clean_bookings(raw_df, stations=stations_df)
 
 * works on ANY booking CSV that follows core/schema.py (so it also works with
-  changed data / an uploaded file)
+changed data / an uploaded file)
 * never crashes on bad values: every bad row is either REPAIRED (counted in
-  report.fixed) or DROPPED (counted in report.dropped, with the reason)
+report.fixed) or DROPPED (counted in report.dropped, with the reason)
 * the report is the "cleaning evidence" for the submission
 """
 from __future__ import annotations
@@ -16,8 +16,8 @@ import numpy as np
 import pandas as pd
 
 from core.schema import (BOOKING_COLS, DATETIME_FORMAT, ID_REGEX,
-                         MAX_DURATION_MIN, MIN_DURATION_MIN,
-                         REQUIRED_BOOKING_COLS)
+                        MAX_DURATION_MIN, MIN_DURATION_MIN,
+                        REQUIRED_BOOKING_COLS)
 
 STATUS_ALIASES = {
     "confirmed": "Confirmed", "waiting": "Waiting", "completed": "Completed",
@@ -106,10 +106,10 @@ def clean_bookings(raw: pd.DataFrame, stations: pd.DataFrame | None = None):
 
     # 1. IDs ---------------------------------------------------------------
     df = _drop(df, ~df["booking_id"].str.match(ID_REGEX["booking"].pattern).fillna(False),
-               "invalid_booking_id", drop)
+            "invalid_booking_id", drop)
     df = _drop(df, df["booking_id"].duplicated(keep="first"), "duplicate_booking_id", drop)
     df = _drop(df, ~df["station_id"].str.match(ID_REGEX["station"].pattern).fillna(False),
-               "invalid_station_id", drop)
+            "invalid_station_id", drop)
     if stations is not None:
         df = _drop(df, ~df["station_id"].isin(set(stations["station_id"])), "unknown_station", drop)
 
@@ -220,5 +220,5 @@ def compare_with_manifest(report: CleaningReport, injected: dict) -> pd.DataFram
     for kind, n in injected.items():
         key = MANIFEST_TO_DEFECT.get(kind, kind)
         rows.append({"injected_defect": kind, "reported_as": key, "injected": n,
-                     "detected": found.get(key, 0), "match": found.get(key, 0) == n})
+                    "detected": found.get(key, 0), "match": found.get(key, 0) == n})
     return pd.DataFrame(rows)

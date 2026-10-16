@@ -379,7 +379,7 @@ class ChargeSpotApp:
                 sid = self.bookings.get_booking(s.booking_id).station_id
             delay = max(0, int(round((s.start_time - s.planned_start).total_seconds() / 60))) if s.planned_start else 0
             rows.append((str(s.session_id), str(s.booking_id), s.user_id, str(sid), s.charger_id, s.planned_start,
-                         s.start_time, s.end_time, int(round(s.duration_minutes)), delay, s.energy_delivered_kwh,
+                        s.start_time, s.end_time, int(round(s.duration_minutes)), delay, s.energy_delivered_kwh,
                          round(s.energy_delivered_kwh * price.get(sid, 6.0), 2)))
         df = pd.DataFrame(rows, columns=SESSION_COLS)
         for c in ("planned_start", "actual_start", "actual_end"):
@@ -390,7 +390,7 @@ class ChargeSpotApp:
         veh = self.vehicles.set_index("vehicle_model")["connector"].to_dict()
         reg = pd.DataFrame([(u["driver_id"], u["name"], u.get("vehicle_model"), veh.get(u.get("vehicle_model")))
                             for u in self.auth.users if u.get("driver_id")],
-                           columns=["driver_id", "name", "vehicle_model", "connector"])
+                        columns=["driver_id", "name", "vehicle_model", "connector"])
         both = pd.concat([reg, self.history_drivers], ignore_index=True)
         return both.drop_duplicates("driver_id", keep="first").reset_index(drop=True)
 

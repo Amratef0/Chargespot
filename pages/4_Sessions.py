@@ -12,7 +12,7 @@ app = get_app()
 st.title("🔋 Charging Sessions")
 show_flash()
 st.caption("Planned time comes from the booking; actual time is recorded when the session starts. "
-           "Use the 'simulated time' boxes to demo without waiting.")
+        "Use the 'simulated time' boxes to demo without waiting.")
 
 tab_go, tab_hist = st.tabs(["Start / complete", "History"])
 with tab_go:
@@ -72,4 +72,4 @@ with tab_hist:
     st.dataframe(pd.DataFrame([{"Session": s.session_id, "Booking": s.booking_id, "Driver": s.user_id, "Charger": s.charger_id,
                                 "Planned start": s.planned_start, "Actual start": s.start_time, "Actual end": s.end_time,
                                 "Minutes": s.duration_minutes, "kWh": s.energy_delivered_kwh, "Status": s.status}
-                               for s in ordered[:300]]), hide_index=True, width="stretch")
+                            for s in ordered[:300]]), hide_index=True, width="stretch")
