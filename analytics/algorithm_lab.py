@@ -1,4 +1,3 @@
-"""Evidence for the algorithm report (Member 4): measured comparisons, not claims."""
 from __future__ import annotations
 
 import math

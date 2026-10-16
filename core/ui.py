@@ -1,15 +1,8 @@
-"""Small shared UI helpers."""
 import streamlit as st
 
 
 
 def is_named(error: BaseException, class_name: str) -> bool:
-    """True if `error` is (a subclass of) a class called `class_name`.
-
-    Compared by NAME on purpose: when Streamlit reloads a module (e.g. after a code update while the cached app is
-    still running), the cached services keep raising the OLD exception classes, and `except ChargeSpotError` with
-    the NEW class would not catch them -> the user would see a traceback instead of "You cannot book a time in
-    the past"."""
     return any(c.__name__ == class_name for c in type(error).__mro__)
 
 

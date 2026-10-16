@@ -1,9 +1,4 @@
-"""Shared data contract for ChargeSpot (agreed by all 4 members in Week 1).
 
-Every CSV column name, ID format and allowed value lives HERE so that no
-member hard-codes a different spelling. If the team changes the schema,
-change it in this file only.
-"""
 import re
 
 DATETIME_FORMAT = "%Y-%m-%d %H:%M"          # every timestamp in every CSV

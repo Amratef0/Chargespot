@@ -1,4 +1,3 @@
-"""Waiting list (Member 2): FIFO queue with positions; automatic promotion happens on cancel/complete."""
 import pandas as pd
 import streamlit as st
 

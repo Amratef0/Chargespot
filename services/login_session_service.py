@@ -1,9 +1,3 @@
-"""Login sessions that survive a page refresh (item: "login lives only in st.session_state").
-
-The browser keeps one random opaque token (cookie). The server keeps only its SHA-256 hash, the e-mail it belongs
-to and two clocks: an IDLE timeout (sliding) and an ABSOLUTE lifetime. Logging out, a password reset, or expiry
-makes the token useless immediately, because the server - not the browser - decides.
-"""
 from __future__ import annotations
 
 import hashlib

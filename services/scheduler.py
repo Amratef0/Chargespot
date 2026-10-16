@@ -1,10 +1,3 @@
-"""Scheduler (Member 2's Scheduler: areas, distances, 'nearest available station' greedy choice).
-
-Kept: get_areas, get_distance, find_suitable_stations, find_best_station and the ordering rule
-(available stations first, then nearest). Changed: availability is computed per charger/date/duration
-through the greedy slot finder; the hand-written O(n^2) swap loop is replaced by the team's own
-merge_sort (same ordering, O(n log n), stable).
-"""
 from algorithms.greedy_scheduler import pick_charger_greedy, suggest_alternatives
 from algorithms.sorting import merge_sort
 

@@ -1,4 +1,3 @@
-"""Admin Analytics dashboard."""
 
 import pandas as pd
 import streamlit as st

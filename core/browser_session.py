@@ -1,10 +1,3 @@
-"""Keeps the login token in a browser cookie so a page refresh does not log the user out.
-
-Streamlit can READ cookies (`st.context.cookies`) but not set them, so a zero-height HTML component runs a tiny
-script that sets / clears the cookie. The cookie holds only a random opaque token; the server decides whether it is
-still valid (services/login_session_service.py), so logout, expiry and password reset work server-side.
-Limits: the cookie is set by JavaScript, so it cannot be HttpOnly; it is SameSite=Lax and Secure on https.
-"""
 from __future__ import annotations
 
 import json

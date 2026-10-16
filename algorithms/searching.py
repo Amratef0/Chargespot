@@ -1,7 +1,4 @@
-"""Search algorithms (PDF: sequential search for unsorted data, binary search ONLY on sorted data).
 
-Every function returns (result, comparisons) so the comparison experiment can count work.
-"""
 from models.exceptions import UnsortedDataError
 
 

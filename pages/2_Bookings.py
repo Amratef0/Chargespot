@@ -1,5 +1,3 @@
-"""Bookings (Member 2's module). Driver: find a station (nearest available = greedy), book, see alternatives,
-join the waiting list, cancel. Operator/admin: all bookings, Merge-sorted, and the charger x hour grid."""
 from datetime import date, datetime, time, timedelta
 
 import pandas as pd

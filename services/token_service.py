@@ -1,9 +1,3 @@
-"""One-time e-mail tokens: "verify_email" (sign-up) and "reset_password" (forgot password).
-
-Only the SHA-256 hash of a token is stored, so a leaked data file does not leak usable links. A token works once,
-expires, and issuing a new one for the same purpose + e-mail invalidates the older one.
-`issued_recently` lets the caller rate-limit e-mails (no mail-bombing a stranger).
-"""
 from __future__ import annotations
 
 import hashlib

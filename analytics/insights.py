@@ -1,8 +1,3 @@
-"""Written insights, GENERATED from the data (never hard-coded).
-
-Every sentence is an f-string built from computed numbers, so the text
-changes when the dataset changes ("No hard-coded final results").
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass

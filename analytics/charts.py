@@ -1,5 +1,3 @@
-"""Plotly figure builders (Member 4). Each function returns a go.Figure and
-contains no Streamlit code, so the same charts can be used in notebooks/reports."""
 from __future__ import annotations
 
 import pandas as pd

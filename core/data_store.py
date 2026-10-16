@@ -1,4 +1,3 @@
-"""File helpers (Member 4): paths, atomic CSV writing, first-run dataset creation."""
 from __future__ import annotations
 
 import os

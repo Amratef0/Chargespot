@@ -1,5 +1,4 @@
-"""User roles (PDF: a User base class with role subclasses). Polymorphism: each role answers
-`permissions()` differently and the UI asks `user.can(action)` instead of checking role strings."""
+
 
 
 class User:

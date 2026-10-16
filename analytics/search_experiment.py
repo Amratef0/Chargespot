@@ -1,12 +1,3 @@
-"""Sequential vs Binary search comparison experiment (Member 4).
-
-Uses the team's algorithms/searching.py: both functions return (index or -1, comparisons).
-If a replacement implementation returns only an index, comparisons are counted from the outside
-with `CountedInt` (every ==, <, > ... = 1).
-
-Fairness rule: sequential search runs on UNSORTED data, binary search only on
-SORTED data (it refuses unsorted input).
-"""
 from __future__ import annotations
 
 import math

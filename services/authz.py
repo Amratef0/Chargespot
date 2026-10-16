@@ -1,11 +1,3 @@
-"""Authorization: ONE place that says who may do what.
-
-* `user.can(permission)` (models/user.py) is the only definition of what a role may do.
-* PAGE_ACCESS says which permission(s) open which page; the sidebar (app.py) and every page's guard
-(`core.state.require_page`) both read it, so the menu and the real check can never disagree.
-* `authorize` is what the application layer (core/app_context.py) calls before every state-changing action,
-so the rules hold even if some other code (not only a Streamlit page) calls the application.
-"""
 from __future__ import annotations
 
 from models.exceptions import PermissionDeniedError

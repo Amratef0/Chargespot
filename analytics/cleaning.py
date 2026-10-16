@@ -1,13 +1,3 @@
-"""Cleaning pipeline for booking data (Member 4).
-
-    clean_df, report = clean_bookings(raw_df, stations=stations_df)
-
-* works on ANY booking CSV that follows core/schema.py (so it also works with
-changed data / an uploaded file)
-* never crashes on bad values: every bad row is either REPAIRED (counted in
-report.fixed) or DROPPED (counted in report.dropped, with the reason)
-* the report is the "cleaning evidence" for the submission
-"""
 from __future__ import annotations
 
 from dataclasses import dataclass, field

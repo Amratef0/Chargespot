@@ -1,14 +1,4 @@
-"""Station model (Member 1's Station, merged with the fields Member 2's scheduler needs).
 
-Kept from Member 1: class-level registry `all_stations`, add_charger, remove_charger, get_chargers,
-casting_station_to_dict, sequential_search_by_name, filter_by_governorate, filter_stations_by_connector,
-update_charger_status, get_availability_summary, save_to_json, load_from_json.
-
-Changed: methods RAISE ChargeSpotError subclasses instead of printing (a Streamlit page cannot show
-`print` output); the JSON path is configurable (it used the current folder, so it crashed when the app
-was started from another folder); new optional fields `area`, `price_per_kwh`, `lat`, `lon`,
-`open_hour`, `close_hour` (Member 2's `area`/`location`; here `address` plays the role of `location`).
-"""
 import json
 from pathlib import Path
 

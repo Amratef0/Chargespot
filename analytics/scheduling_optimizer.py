@@ -1,38 +1,3 @@
-"""Smart scheduling optimization (optional AI feature, Member 4).
-
-Problem: a station has several chargers and a BATCH of charging requests
-(desired start, duration, connector). Give each request a charger and a start
-time so that fewer drivers are turned away and the total waiting is smallest.
-
-    wait of a request = assigned start - desired start
-    two bookings on one charger overlap if  A.start < B.end and B.start < A.end
-    a request is UNSERVED if it would wait more than `max_wait` or end after closing
-
-Everything here is "list scheduling": requests are placed ONE BY ONE, each at
-the earliest free slot (>= desired start) on the compatible charger that
-starts it soonest. The ORDER of the requests is what we optimise:
-
-    fcfs               order of booking time              <- the greedy baseline
-    shortest_first     short sessions first               <- classic rule for low total waiting
-    earliest_desired   earliest desired start first
-    best_heuristic     best of the three above
-    local_search       start from best_heuristic, swap pairs while it improves
-    optimal            exhaustive backtracking with pruning (only for <= 8 requests)
-
-Objective (one number, lower is better):
-    cost = total wait of served requests + max_wait x (number of unserved requests)
-i.e. turning a driver away counts as the longest wait we accept. Comparing total wait
-alone would be misleading: a plan can look "faster" simply by serving fewer drivers.
-
-HONEST LIMITS
-* `optimal` is optimal over all request ORDERS (so over all list schedules); it
-is exponential: refused above MAX_EXACT requests.
-* Re-planning a whole day offline assumes all requests are known in advance.
-In real time you cannot know future requests, so the gain is an upper bound.
-* The ordering uses a `sort_fn` argument (default Python `sorted`) because this
-is not one of the course's required manual-sorting parts; pass Member 3's
-merge_sort at integration time to use the team's own implementation.
-"""
 from __future__ import annotations
 
 import bisect

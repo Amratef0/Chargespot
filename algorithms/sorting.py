@@ -1,6 +1,4 @@
-"""Sorting (Member 3). `merge_sort` is Member 3's code, unchanged.
-Added: `merge_sort_with_stats` (comparisons + recursive calls) for the algorithm evidence.
-"""
+
 def merge_sort(arr, key=lambda x: x, reverse=False):
     comparisons = 0
 

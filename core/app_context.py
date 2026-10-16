@@ -1,21 +1,4 @@
-"""ChargeSpotApp: ONE object that wires every team module together (Member 4 - integration).
 
-    stations  (Member 1)  StationService   - stations, chargers, hash registry, undo Stack
-    bookings  (Member 2)  BookingService   - per-charger bookings, overlap rule, binary search
-    waiting   (Member 2)  WaitingQueue     - FIFO Queue + promotion
-    scheduler (Member 2)  Scheduler        - nearest-available-station greedy
-    sessions  (Member 3)  SessionService   - start/complete, Merge Sort history
-    battery   (Member 3)  BatteryService   - range / time estimates
-    auth                  AuthService      - login/register, e-mail verification, password reset
-    login_sessions        LoginSessionStore- server-side login sessions (survive a page refresh)
-
-Security boundary: every state-changing method below takes the acting `user` and calls `authorize(...)` first,
-so the rules hold for ANY caller, not only for the Streamlit pages. Pages must call these methods and must not
-call the mutators of `app.stations` / `app.sessions` directly (tests/test_authorization.py enforces that).
-
-Persistence: every change is written to CSV/JSON immediately (atomic), so data survives a restart.
-The Streamlit pages only call this class (they contain no business logic).
-"""
 from __future__ import annotations
 
 import json
@@ -64,7 +47,7 @@ class ChargeSpotApp:
         self.history_drivers = pd.read_csv(self.dir / "drivers.csv")
         self.bookings = BookingService()
         self.stations = StationService(self.dir / "stations.json",
-                                       has_active_bookings=lambda cid: self.bookings.has_active_bookings(cid, self.now()))
+                                    has_active_bookings=lambda cid: self.bookings.has_active_bookings(cid, self.now()))
         self.waiting = WaitingQueue()
         self.sessions = SessionService()
         distances = json.loads((self.dir / "distances.json").read_text(encoding="utf-8"))

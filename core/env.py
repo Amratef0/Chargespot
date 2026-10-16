@@ -1,9 +1,4 @@
-"""Tiny .env loader (no extra dependency): reads KEY=VALUE lines from <project>/.env into os.environ.
 
-* Variables already set in the real environment win (a .env never overrides them).
-* Skipped under pytest, so a developer's real SMTP settings can never make the tests send e-mail.
-* `.env` is git-ignored; `.env.example` shows the keys.
-"""
 from __future__ import annotations
 
 import os

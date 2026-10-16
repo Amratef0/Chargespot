@@ -1,4 +1,3 @@
-"""Time-interval helpers. The overlap rule comes straight from the project plan."""
 from models.exceptions import ValidationError
 from utils.validators import PATTERNS
 

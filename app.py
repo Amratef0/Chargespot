@@ -1,9 +1,3 @@
-"""ChargeSpot - app shell (Member 4).  Run:  streamlit run app.py
-
-Login / registration (with e-mail verification) / forgot password first; then the sidebar shows only the pages the
-user's ROLE may use: Driver (role 'user'), Station Operator ('operator'), Administrator ('admin').
-Who may open what is decided in ONE place: services/authz.py (PAGE_ACCESS) + models/user.py (permissions()).
-"""
 import os
 
 import streamlit as st
@@ -79,11 +73,6 @@ def auth_screen():
         if pending and st.button("Send a new verification e-mail"):
             app.auth.resend_verification(pending)
             st.info("If that account is waiting for verification, a new e-mail is on its way.")
-        with st.expander("Demo accounts"):
-            st.markdown("| Role | E-mail | Password |\n|---|---|---|\n"
-                        "| Administrator | admin@chargespot.com | Admin1234 |\n"
-                        "| Station Operator | operator@chargespot.com | Operator1234 |\n"
-                        "| Driver | ahmed@gmail.com | 123456789 |")
     with tab_reg:
         with st.form("register"):
             c1, c2 = st.columns(2)

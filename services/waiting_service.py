@@ -1,10 +1,3 @@
-"""Waiting list (Member 2's WaitingQueue, rebuilt on a real FIFO Queue).
-
-Kept: class name, add_to_waiting_list, remove_request, get_request, get_matching_requests.
-Changed: the list `self.queue` is now algorithms.queue.Queue (enqueue/dequeue/position);
-requests carry connector, duration and full datetimes; queue POSITIONS are shown (PDF);
-promotion handles any freed slot (it only matched identical start/end times before) and keeps FIFO order.
-"""
 from datetime import datetime
 
 from algorithms.greedy_scheduler import pick_charger_greedy

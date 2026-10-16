@@ -1,13 +1,3 @@
-"""Booking service (Member 2's BookingService, redesigned - see docs/TEAM_CHANGES.md).
-
-Kept: class/method names (check_booking_overlap, create_booking, cancel_booking, time_to_minutes, is_overlap).
-Fixed: is_overlap now implements `A.start < B.end and B.start < A.end` (it only caught identical times);
-bookings are per CHARGER and per DATE (they were per station and had no date); connector compatibility,
-opening hours, duration and past-time checks; bookings persist (see core/app_context).
-
-Data structures: HashTable booking-ID registry; per (charger, date) list of busy intervals kept SORTED by
-start time, so a new booking is checked with BINARY SEARCH (it can only touch its two neighbours).
-"""
 from datetime import datetime, timedelta
 
 from algorithms.hash_table import HashTable

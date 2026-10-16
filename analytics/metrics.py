@@ -1,19 +1,3 @@
-"""Analytics metrics (Member 4). Every function is PURE: DataFrames in, result out.
-
-No Streamlit, no files, no globals -> easy to unit-test and works with any
-changed dataset that follows core/schema.py.
-
-Metric definitions (also quoted in the README / defense):
-    completion rate   = Completed / decided bookings
-    cancellation rate = Cancelled / decided bookings
-    no-show rate      = No-Show   / decided bookings
-        (decided = Completed + Cancelled + No-Show; Confirmed/Waiting excluded)
-    utilization       = charging minutes delivered / available charger minutes
-        available minutes = active chargers x opening hours x days in period
-        (chargers in Maintenance are excluded from capacity)
-    average delay     = mean(actual_start - planned_start) over sessions
-    average wait      = mean(wait_min) over bookings that were queued
-"""
 from __future__ import annotations
 
 import pandas as pd

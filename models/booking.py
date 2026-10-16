@@ -1,4 +1,3 @@
-"""Booking model (Member 2's Booking, extended: charger, connector, full datetimes, waiting info)."""
 
 
 class Booking:

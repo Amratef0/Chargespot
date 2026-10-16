@@ -1,5 +1,4 @@
-"""Charger classes (Member 1). Inheritance: Charger -> ACCharger / DCCharger.
-Added: validation (power, status, connector) and `charger_from_dict` factory."""
+
 from models.exceptions import InvalidStatusError, ValidationError
 from utils.validators import is_id
 

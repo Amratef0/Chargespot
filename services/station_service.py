@@ -1,11 +1,3 @@
-"""Station service (Member 1's station_service, extended).
-
-Kept: Stack-based undo, `remove_charger_with_undo`, `undo_last_admin_action`.
-Added: the undo Stack now covers EVERY admin change (it only covered charger removal), station
-add/edit/remove, a HashTable ID registry (instant lookup of a station or charger by ID), and the rule
-"a charger/station with active bookings cannot be removed" (only the Occupied status was checked).
-The stack and registry are per service instance (they were a module-level global).
-"""
 from algorithms.hash_table import HashTable
 from algorithms.stack import Stack
 from models.charger import charger_from_dict

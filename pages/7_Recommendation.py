@@ -1,4 +1,3 @@
-"""Smart station recommendation (idea: Member 2, built by Member 4). Uses Member 2's distance matrix."""
 import streamlit as st
 
 from ai.recommendation import Weights, recommend_stations

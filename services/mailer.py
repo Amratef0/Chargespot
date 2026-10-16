@@ -1,13 +1,3 @@
-"""Sending e-mail. Three interchangeable senders with the same `send(to, subject, body)` method:
-
-* SMTPMailer    real e-mail (Gmail / any SMTP server) - configured with environment variables
-* FileMailer    DEVELOPMENT: writes each message to data/outbox/ instead of sending it
-* MemoryMailer  tests: keeps messages in a list
-
-Environment variables for real e-mail:
-  CHARGESPOT_SMTP_HOST   CHARGESPOT_SMTP_PORT (587 = STARTTLS, 465 = SSL)   CHARGESPOT_SMTP_USER
-  CHARGESPOT_SMTP_PASSWORD (for Gmail: an "app password")   CHARGESPOT_MAIL_FROM
-"""
 from __future__ import annotations
 
 import os

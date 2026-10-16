@@ -1,14 +1,4 @@
-"""Streamlit state (answer to "where is state handled?").
 
-* st.cache_resource  -> `get_app()`: ONE shared ChargeSpotApp per server process (stations, bookings,
-                        waiting queue, sessions). Changes are saved to CSV/JSON immediately, so they also
-                        survive a restart.
-* st.session_state   -> per browser tab: `user` (who is logged in), `auth_token`, `chat`, and small UI values
-                        (e.g. `booking_search`, `search_df`).
-* login token        -> also kept in a cookie (core/browser_session.py) and checked against the server-side
-                        LoginSessionStore on EVERY run (`authenticate()`), so refresh keeps you logged in while
-                        logout / expiry / password reset end the session immediately.
-"""
 from __future__ import annotations
 
 import os

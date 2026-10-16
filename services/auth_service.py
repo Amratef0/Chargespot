@@ -1,12 +1,3 @@
-"""Login / registration (merged from the team's two versions of login_and_register.py).
-
-From the persistent version (zip): users stored in users.json.  From the other version: validators
-that return True/False (usable from Streamlit; the console version looped on input()).
-Fixed: registration looped forever on bad input and could not return to the menu; duplicate e-mails
-were accepted; the e-mail regex rejected a.b@x.com and x@y.co.uk; phone accepted letters; ages 56+ were
-rejected; passwords were stored in PLAIN TEXT (now salted PBKDF2-SHA256; old plain-text entries are
-upgraded on first load); the admin password was hard-coded in the source of one version.
-"""
 import hashlib
 import hmac
 import json

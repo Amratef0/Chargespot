@@ -1,5 +1,4 @@
-"""Custom exceptions. The first three are Member 3's; the rest were added so every
-module can raise a precise error that the UI turns into a friendly message."""
+
 
 
 class ChargeSpotError(Exception):

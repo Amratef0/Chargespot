@@ -1,4 +1,3 @@
-"""Charging sessions (Member 3's module): start/complete with planned vs actual time, Merge-sorted history."""
 from datetime import date, datetime, time
 
 import pandas as pd

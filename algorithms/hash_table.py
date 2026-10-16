@@ -1,13 +1,4 @@
-"""Custom hash table (Member 1's HashTable, rebuilt).
 
-Original problems (found in the audit): no collision handling (two keys in one bucket silently
-overwrote each other), `get` returned 0 for missing keys, it used Python's per-run randomised
-`hash()`, and nothing in the project used it.
-
-Now: own deterministic hash function, separate chaining, automatic resize, and statistics
-(collisions, load factor, longest chain) for the algorithm evidence. Same method names as before:
-HashTable(size), .hash(key), .put(key, value), .get(key).
-"""
 
 
 class HashTable:

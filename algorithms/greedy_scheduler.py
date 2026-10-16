@@ -1,15 +1,4 @@
-"""Greedy slot assignment (Member 2's greedy idea, made charger-level and date-aware).
 
-Greedy rule: give the driver the EARLIEST free start at or after the requested time, on the
-compatible charger that can start soonest (ties: faster charger, then lower ID).
-
-Why greedy fits: each decision is local and immediate (a driver is waiting for an answer).
-Why it is not always globally optimal: it never reconsiders earlier choices, so a long session
-placed first can block several short ones (see analytics/scheduling_optimizer.counter_example).
-
-`busy_of(charger_id)` must return that charger's busy intervals for the day, SORTED by start:
-a list of (start_min, end_min, booking_id).
-"""
 from dataclasses import dataclass
 
 

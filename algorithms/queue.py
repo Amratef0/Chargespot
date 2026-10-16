@@ -1,8 +1,4 @@
-"""FIFO Queue (written by hand; used for the waiting list).
 
-enqueue / dequeue are O(1) amortised (head index, list compacted when it gets sparse).
-`remove_where` and `position_of` are O(n): a cancelled request can leave from the middle.
-"""
 
 
 class Queue:

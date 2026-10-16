@@ -1,4 +1,3 @@
-"""Algorithm Lab: live evidence for every required data structure / algorithm (admin)."""
 import pandas as pd
 import streamlit as st
 
