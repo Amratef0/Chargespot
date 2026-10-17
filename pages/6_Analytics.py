@@ -1,4 +1,3 @@
-
 import pandas as pd
 import streamlit as st
 
@@ -373,23 +372,44 @@ with tab_st:
         width="stretch",
     )
 
+    # ---------------- Station map (fixed) ----------------
     st.subheader("Station map")
 
-    map_data = utilization.merge(
-        stations[["station_id", "lat", "lon"]],
+    coords = stations[["station_id", "lat", "lon"]]
+
+    # Drop lat/lon from utilization if present, so the merge
+    # does not create lat_x / lat_y columns.
+    map_data = utilization.drop(
+        columns=["lat", "lon"],
+        errors="ignore",
+    ).merge(
+        coords,
         on="station_id",
     )
 
+    # Force numeric types; bad values become NaN.
+    for col in ["lat", "lon", "utilization_pct"]:
+        map_data[col] = pd.to_numeric(map_data[col], errors="coerce")
+
+    # Stations with no sessions get 0% utilization instead of NaN.
+    map_data["utilization_pct"] = map_data["utilization_pct"].fillna(0)
+
+    # A station without coordinates cannot be drawn.
+    map_data = map_data.dropna(subset=["lat", "lon"])
+
     map_data["size"] = 200 + map_data["utilization_pct"] * 25
 
-    st.map(
-        map_data,
-        latitude="lat",
-        longitude="lon",
-        size="size",
-    )
-
-    st.caption("Bubble size = utilization.")
+    if map_data.empty:
+        st.info("No station coordinates available for the selected filters.")
+    else:
+        st.map(
+            map_data,
+            latitude="lat",
+            longitude="lon",
+            size="size",
+        )
+        st.caption("Bubble size = utilization.")
+    # -----------------------------------------------------
 
     st.subheader("Station comparison table")
 
