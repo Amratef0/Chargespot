@@ -5,7 +5,7 @@ from algorithms.interval_utils import intervals_overlap, time_to_minutes
 from algorithms.searching import insertion_point
 from algorithms.sorting import merge_sort
 from models.booking import Booking
-from models.exceptions import (NotFoundError, SchedulingConflictError, ValidationError)
+from models.exceptions import (ChargeSpotError, NotFoundError, SchedulingConflictError, ValidationError)
 
 MIN_DURATION, MAX_DURATION, STEP = 15, 240, 15
 BLOCKING = ("Confirmed", "Completed", "No-Show")      # statuses that occupy the charger
@@ -19,13 +19,40 @@ def _minute(dt):
     return dt.hour * 60 + dt.minute
 
 
+def booking_confirmation_mail(b, station, charger):
+    """Build (subject, body) of the confirmation e-mail sent to the driver."""
+    mins = int((b.end_time - b.start_time).total_seconds() // 60)
+    subject = f"Booking #{b.booking_id} confirmed - {station.name}, {b.start_time:%d %b %H:%M}"
+    lines = [
+        "Your charging booking is confirmed!",
+        "",
+        f"Booking ID : #{b.booking_id}",
+        f"Status     : {b.status}",
+        f"Station    : {station.name} ({station.area})",
+        f"Charger    : {b.charger_id} ({charger.get('connector_type') or '-'})",
+        f"Date       : {b.start_time:%A, %d %B %Y}",
+        f"Time       : {b.start_time:%H:%M} - {b.end_time:%H:%M} ({mins} minutes)",
+    ]
+    if getattr(b, "queued", 0) and getattr(b, "wait_min", 0):
+        lines.append(f"Expected wait: {b.wait_min} minutes")
+    lines += [
+        "",
+        "Good to know:",
+        "- Please arrive on time; the slot is reserved only for the booked period.",
+        "- If you do not show up, the booking is marked as No-Show.",
+        "- You can cancel a Confirmed booking from the app to free the slot.",
+    ]
+    return subject, "\n".join(lines)
+
+
 class BookingService:
-    def __init__(self):
+    def __init__(self, mailer=None):
         self.bookings = []
         self._by_id = HashTable(1024)
         self._busy = {}                   # (charger_id, "YYYY-MM-DD") -> [(start_min, end_min, booking_id)] sorted
         self._next_id = 1
         self.search_comparisons = 0       # binary-search work done (algorithm evidence)
+        self.mailer = mailer              # any object with send(to, subject, body); None = no e-mails
 
     # ------------------------------------------------------------ helpers (names kept from Member 2)
     @staticmethod
@@ -80,7 +107,7 @@ class BookingService:
             raise ValidationError("You cannot book a time in the past.")
 
     def create_booking(self, driver_id, station, charger, start, duration_min, now=None, allow_past=False,
-                    queued=0, wait_min=0, created_at=None):
+                    queued=0, wait_min=0, created_at=None, driver_email=None):
         self.validate_request(station, charger, start, duration_min, now, allow_past)
         end = start + timedelta(minutes=duration_min)
         if self.check_booking_overlap(charger["charger_id"], start, end):
@@ -90,10 +117,21 @@ class BookingService:
                     "Confirmed", charger["charger_id"], charger.get("connector_type"),
                     created_at or now or datetime.now(), queued, wait_min)
         self._register(b)
+        self._notify(driver_email, b, station, charger)
         return b
 
+    def _notify(self, email, b, station, charger):
+        """Send the confirmation e-mail. A mail failure must never undo a saved booking."""
+        if not (self.mailer and email):
+            return
+        try:
+            subject, body = booking_confirmation_mail(b, station, charger)
+            self.mailer.send(email, subject, body)
+        except ChargeSpotError:           # includes MailDeliveryError
+            pass
+
     def load_booking(self, b):
-        """Add a booking read from storage (no validation: it was validated when it was created)."""
+        """Add a booking read from storage (no validation, no e-mail: it was handled when it was created)."""
         self._register(b)
         return b
 

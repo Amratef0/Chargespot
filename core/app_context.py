@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 import json
@@ -45,7 +44,8 @@ class ChargeSpotApp:
         self._frames = (-1, None)
         self.vehicles = pd.read_csv(self.dir / "vehicles.csv")
         self.history_drivers = pd.read_csv(self.dir / "drivers.csv")
-        self.bookings = BookingService()
+        self.mailer = self.mailer_override or build_mailer(self.dir)      # built first: BookingService e-mails drivers
+        self.bookings = BookingService(mailer=self.mailer)
         self.stations = StationService(self.dir / "stations.json",
                                     has_active_bookings=lambda cid: self.bookings.has_active_bookings(cid, self.now()))
         self.waiting = WaitingQueue()
@@ -54,7 +54,6 @@ class ChargeSpotApp:
         self.scheduler = Scheduler(distances)
         nums = [int(d[1:]) for d in self.history_drivers["driver_id"]]
         self.login_sessions = LoginSessionStore(self.dir / "auth_sessions.json", now_fn=self.now)
-        self.mailer = self.mailer_override or build_mailer(self.dir)
         self.auth = AuthService(self.dir / "users.json", first_new_driver_number=max(nums) + 1,
                                 vehicle_models=list(self.vehicles["vehicle_model"]), mailer=self.mailer,
                                 tokens=TokenStore(self.dir / "auth_tokens.json", now_fn=self.now),
@@ -150,7 +149,7 @@ class ChargeSpotApp:
         if opt is None:
             return {"status": "unavailable", "alternatives": suggest_alternatives(usable, busy_of, s, duration_min, close)}
         b = self.bookings.create_booking(user.driver_id, station, station.find_charger(opt.charger_id), start,
-                                         duration_min, now=self.now())
+                                         duration_min, now=self.now(), driver_email=user.email)
         self._save_bookings(); self.touch()
         return {"status": "confirmed", "booking": b}
 
@@ -159,7 +158,7 @@ class ChargeSpotApp:
         self._need_driver(user)
         start = datetime.strptime(day, "%Y-%m-%d") + timedelta(minutes=option.start_min)
         b = self.bookings.create_booking(user.driver_id, station, station.find_charger(option.charger_id), start,
-                                         duration_min, now=self.now())
+                                         duration_min, now=self.now(), driver_email=user.email)
         self._save_bookings(); self.touch()
         return b
 
