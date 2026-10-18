@@ -69,7 +69,6 @@ EV drivers arrive at a station and find every charger busy. Operators juggle boo
 | 📊 **Admin analytics** | Cleaning report, KPIs, generated insights, demand heatmap, station map, 15+ charts, CSV export |
 | 🤖 **AI features** | Demand forecast, English / Arabic assistant, optional LLM rewording, station recommendation, scheduling optimizer, predictive maintenance |
 | 🔐 **Accounts & roles** | Login, e-mail verification, password reset, three roles, permissions enforced in the application layer |
-| 🧪 **Algorithm Lab** | Measures every data structure and algorithm live on the real data |
 
 <!--
 SCREENSHOTS: add your images to docs/screenshots/ and uncomment this section.
@@ -352,13 +351,6 @@ Every booking made in the app is added to the same files. The station catalog me
 
 Team members: Amr Atef, Ahmed Mahmoud, Bishoy Emeil, Malak Ghandour.
 
----
-
-## 🙏 Acknowledgments
-
-Special thanks to our Project Manager **Omar Emad**, and to our instructors **Ahmed Medhat** and **Ahmed Maher Elmoazen** for their guidance throughout the program.
-
-Thank you to the whole **Samsung Innovation Campus** team, **Dina Nabil, Shorok Mohamed, Fatma Ibrahim, Ahmed Bar, Mohamed Sameh and Toqa Khaled**, and to **Life Makers Foundation** for making this journey possible.
 
 ---
 
